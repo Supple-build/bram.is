@@ -1,0 +1,10 @@
+---
+import { getDataHome } from '../utilities/api/pagehome';
+import Layout from '@layouts/Layout.astro';
+
+const pageData = await getDataHome();
+---
+
+<Layout metaData={pageData.metaData} skipMetaTitleSuffix>
+	<h1>{pageData.title}</h1>
+</Layout>
