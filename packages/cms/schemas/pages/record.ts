@@ -1,4 +1,9 @@
 import {defineType, defineField} from 'sanity'
+import {isUniqueSlug} from '../../utilities/isUniqueSlug'
+
+async function isUnique(slug: any, context: any) {
+	return await isUniqueSlug({slug, context, type: 'page-record'})
+}
 
 export default defineType({
 	title: 'Record',
@@ -95,6 +100,7 @@ export default defineType({
 			type: 'slug',
 			options: {
 				source: 'metaData.title',
+				isUnique: isUnique,
 			},
 			fieldset: 'urlStructure',
 			group: 'urlStructure',

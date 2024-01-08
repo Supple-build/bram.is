@@ -9,8 +9,9 @@ import {
 } from 'react-icons/bs'
 
 import {getFolder} from './utilities/getFolder'
-import {getSingleton} from './utilities/getSingleton'
+import {getTranslatedSingleton} from './utilities/getTranslatedSingleton'
 import {getDocumentList} from './utilities/getDocumentList'
+import {getSingleton} from './utilities/getSingleton'
 
 export default (S: any) =>
 	S.list()
@@ -20,8 +21,8 @@ export default (S: any) =>
 				title: 'Pagina’s',
 				icon: BsFileRichtext,
 				items: [
-					getSingleton(S, {
-						title: 'Homepage',
+					getTranslatedSingleton(S, {
+						title: 'HomePage',
 						type: 'page-home',
 						icon: BsHouse,
 					}),
@@ -52,8 +53,8 @@ export default (S: any) =>
 
 			S.divider(),
 
-			getSingleton(S, {
-				title: 'Site Settings',
+			getTranslatedSingleton(S, {
+				title: 'Settings',
 				type: 'settings',
 				icon: BsGear,
 			}),

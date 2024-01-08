@@ -10,6 +10,7 @@ import experienceDocument from './documents/experience'
 // Objects
 import metaDataObject from './objects/metaData'
 import pageSelectorObject from './objects/pageSelector'
+import customBlockObject from './objects/customBlock'
 
 export const schemaTypes = [
 	// Pages
@@ -22,4 +23,5 @@ export const schemaTypes = [
 	// Objects
 	metaDataObject,
 	pageSelectorObject,
+	customBlockObject,
 ]

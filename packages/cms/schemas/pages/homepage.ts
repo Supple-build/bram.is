@@ -12,10 +12,18 @@ export default defineType({
 	],
 	fields: [
 		defineField({
+			name: 'language',
+			type: 'string',
+			readOnly: true,
+			hidden: true,
+		}),
+
+		defineField({
 			name: 'metaData',
 			type: 'metaData',
 			group: 'seo',
 		}),
+
 		defineField({
 			title: 'Title',
 			name: 'title',
