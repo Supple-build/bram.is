@@ -1,4 +1,12 @@
-import {BsFileRichtext, BsGear, BsHouse, BsVinyl, BsVinylFill} from 'react-icons/bs'
+import {
+	BsFileRichtext,
+	BsFiletypeDoc,
+	BsGear,
+	BsHouse,
+	BsListColumnsReverse,
+	BsVinyl,
+	BsVinylFill,
+} from 'react-icons/bs'
 
 import {getFolder} from './utilities/getFolder'
 import {getSingleton} from './utilities/getSingleton'
@@ -30,13 +38,17 @@ export default (S: any) =>
 				],
 			}),
 
-			// getFolder(S, {
-			// 	title: 'Documents',
-			// 	icon: BsFileEarmark,
-			// 	items: [
-
-			// 	],
-			// }),
+			getFolder(S, {
+				title: 'Documents',
+				icon: BsFiletypeDoc,
+				items: [
+					getDocumentList(S, {
+						title: 'Experience',
+						type: 'experience',
+						icon: BsListColumnsReverse,
+					}),
+				],
+			}),
 
 			S.divider(),
 
