@@ -1,3 +1,4 @@
+import { localeCollection } from 'src/utilities/locale';
 import type { PageProps } from '../queries';
 import { getPageFolder } from './getParentPages';
 
@@ -6,18 +7,25 @@ export const getStaticPathsFromData = ({
 	fragment,
 }: {
 	data: PageProps | PageProps[];
-	fragment: string;
+	fragment?: string;
 }) =>
 	Array.isArray(data)
 		? data
-				.filter((page) => page.slug)
+				.filter(
+					(page) =>
+						localeCollection.filter(
+							(locale) => locale.id === page.localeID || page.localeID === null,
+						).length,
+				)
 				.map((page) => ({
 					params: {
+						locale: page.localeID || localeCollection[0].id,
 						slug: getPageFolder(page),
-						[fragment]: page.slug,
+						...(fragment ? { [fragment]: page.slug } : {}),
 					},
 					props: {
 						pageData: page,
+						pagesData: data,
 					},
 				}))
 				.flat(Infinity)
@@ -25,8 +33,9 @@ export const getStaticPathsFromData = ({
 		? [
 				{
 					params: {
+						locale: data.localeID || localeCollection[0].id,
 						slug: getPageFolder(data),
-						[fragment]: data.slug,
+						...(fragment ? { [fragment]: data.slug } : {}),
 					},
 					props: {
 						pageData: data,

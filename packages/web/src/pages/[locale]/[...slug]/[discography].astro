@@ -1,5 +1,5 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import Layout from '../../../layouts/Layout.astro';
 import { Cover } from '@components/molecules';
 import { getStaticPathsFromData } from 'src/utilities/api/helpers/getStaticPathsFromData';
 import { getFullPageUrl } from 'src/utilities/api/helpers/getParentPages';
@@ -10,7 +10,10 @@ import {
 
 export async function getStaticPaths() {
 	const data = await getDataPageDiscography();
-	return getStaticPathsFromData({ data, fragment: 'discography' });
+	const staticPaths = getStaticPathsFromData({ data, fragment: 'discography' });
+	console.log('staticPaths', staticPaths);
+
+	return staticPaths;
 }
 
 interface Props {
