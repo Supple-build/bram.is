@@ -1,4 +1,5 @@
 import {defineType, defineField} from 'sanity'
+import {filterReference} from '../../utilities/filterReference'
 
 export default defineType({
 	title: 'Experience',
@@ -32,19 +33,12 @@ export default defineType({
 		defineField({
 			title: 'Employment type',
 			name: 'employmentType',
-			type: 'string',
+			type: 'reference',
 			validation: (Rule) => Rule.required(),
+			to: [{type: 'employmentType'}],
 			options: {
-				list: [
-					'Full-time',
-					'Part-time',
-					'Permanent',
-					'Self-employed',
-					'Freelance',
-					'Contract',
-					'Internship',
-					'Apprenticeship',
-				],
+				disableNew: true,
+				filter: filterReference,
 			},
 		}),
 

@@ -6,6 +6,7 @@ import recordPage from './pages/record'
 
 // Documents
 import settingsDocument from './documents/settings'
+import employmentTypeDocument from './documents/employmentType'
 import experienceDocument from './documents/experience'
 
 // Objects
@@ -21,6 +22,7 @@ export const schemaTypes = [
 	recordPage,
 	// Documents
 	settingsDocument,
+	employmentTypeDocument,
 	experienceDocument,
 	// Objects
 	metaDataObject,

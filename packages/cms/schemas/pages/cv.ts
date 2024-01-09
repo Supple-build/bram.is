@@ -1,5 +1,6 @@
 import {defineType, defineField} from 'sanity'
 import {isUniqueSlug} from '../../utilities/isUniqueSlug'
+import {filterReference} from '../../utilities/filterReference'
 
 async function isUnique(slug: any, context: any) {
 	return await isUniqueSlug({slug, context, type: 'generic-page'})
@@ -43,6 +44,21 @@ export default defineType({
 			title: 'Title',
 			name: 'title',
 			type: 'string',
+		}),
+
+		defineField({
+			title: 'Experience',
+			name: 'experience',
+			type: 'array',
+			of: [
+				{
+					type: 'reference',
+					to: [{type: 'experience'}],
+					options: {
+						filter: filterReference,
+					},
+				},
+			],
 		}),
 
 		defineField({

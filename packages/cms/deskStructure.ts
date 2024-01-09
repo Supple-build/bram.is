@@ -1,4 +1,5 @@
 import {
+	BsBriefcase,
 	BsFileRichtext,
 	BsFiletypeDoc,
 	BsGear,
@@ -12,6 +13,7 @@ import {
 import {getFolder} from './utilities/getFolder'
 import {getTranslatedSingleton} from './utilities/getTranslatedSingleton'
 import {getDocumentList} from './utilities/getDocumentList'
+import {getTranslatedDocumentList} from './utilities/getTranslatedDocumentList'
 import {getSingleton} from './utilities/getSingleton'
 
 export default (S: any) =>
@@ -49,10 +51,15 @@ export default (S: any) =>
 				title: 'Documents',
 				icon: BsFiletypeDoc,
 				items: [
-					getDocumentList(S, {
+					getTranslatedDocumentList(S, {
 						title: 'Experience',
 						type: 'experience',
 						icon: BsListColumnsReverse,
+					}),
+					getTranslatedDocumentList(S, {
+						title: 'Employment Type',
+						type: 'employmentType',
+						icon: BsBriefcase,
 					}),
 				],
 			}),
