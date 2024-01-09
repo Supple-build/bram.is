@@ -5,9 +5,11 @@ import { getPageFolder } from './getParentPages';
 export const getStaticPathsFromData = ({
 	data,
 	fragment,
+	includePagesData,
 }: {
 	data: PageProps | PageProps[];
 	fragment?: string;
+	includePagesData?: boolean;
 }) =>
 	Array.isArray(data)
 		? data
@@ -25,7 +27,7 @@ export const getStaticPathsFromData = ({
 					},
 					props: {
 						pageData: page,
-						pagesData: data,
+						...(includePagesData ? { pagesData: data } : {}),
 					},
 				}))
 				.flat(Infinity)
