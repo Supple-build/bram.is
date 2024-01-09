@@ -10,7 +10,8 @@
 		"astro": "astro"
 	},
 	"dependencies": {
-		"astro": "^4.0.7"
+		"astro": "^4.0.7",
+		"astro-portabletext": "^0.9.6"
 	},
 	"devDependencies": {
 		"@sanity/astro": "^2.1.4",

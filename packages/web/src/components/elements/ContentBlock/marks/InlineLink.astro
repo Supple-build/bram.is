@@ -1,0 +1,33 @@
+---
+import { Mark } from 'astro-portabletext/components';
+import { type ContentBlockProps } from '..';
+import ContentBlock from '../ContentBlock.astro';
+
+type Props = Parameters<typeof Mark>[0];
+
+interface MarkProps {
+	children: ContentBlockProps['value'];
+	type: string;
+	node?: {
+		style: string;
+	};
+	mark?: {
+		href?: string;
+	};
+}
+
+const props = Astro.props;
+
+const { children, mark } = {
+	children: props.node.children,
+	mark: props.node.markDef,
+	type: props.node.markType,
+} as MarkProps;
+
+// TODO: Handle reference to other document
+const href = mark?.href || '#';
+---
+
+<a href={href}>
+	<ContentBlock value={children} />
+</a>
