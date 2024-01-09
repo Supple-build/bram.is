@@ -104,6 +104,7 @@ export default defineType({
 			},
 			fieldset: 'urlStructure',
 			group: 'urlStructure',
+			validation: (Rule) => Rule.required(),
 		}),
 	],
 })

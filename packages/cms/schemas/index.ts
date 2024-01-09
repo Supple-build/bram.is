@@ -1,5 +1,6 @@
 // Pages
 import homepagePage from './pages/homepage'
+import cvPage from './pages/cv'
 import discographyPage from './pages/discography'
 import recordPage from './pages/record'
 
@@ -15,6 +16,7 @@ import customBlockObject from './objects/customBlock'
 export const schemaTypes = [
 	// Pages
 	homepagePage,
+	cvPage,
 	discographyPage,
 	recordPage,
 	// Documents

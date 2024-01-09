@@ -1,16 +1,14 @@
 import {defineType, defineField} from 'sanity'
+import {isUniqueSlug} from '../../utilities/isUniqueSlug'
+
+async function isUnique(slug: any, context: any) {
+	return await isUniqueSlug({slug, context, type: 'generic-page'})
+}
 
 export default defineType({
-	title: 'Discography',
-	name: 'page-discography',
+	title: 'Curriculum Vitae',
+	name: 'page-cv',
 	type: 'document',
-	// preview: {
-	// 	select: {
-	// 		title: 'song.title',
-	// 		subtitle: 'song.artist',
-	// 		media: 'song.albumArt',
-	// 	},
-	// },
 	fieldsets: [
 		{
 			name: 'urlStructure',
@@ -28,6 +26,13 @@ export default defineType({
 		},
 	],
 	fields: [
+		defineField({
+			name: 'language',
+			type: 'string',
+			readOnly: true,
+			hidden: true,
+		}),
+
 		defineField({
 			name: 'metaData',
 			type: 'metaData',
@@ -55,6 +60,7 @@ export default defineType({
 			type: 'slug',
 			options: {
 				source: 'metaData.title',
+				isUnique: isUnique,
 			},
 			fieldset: 'urlStructure',
 			group: 'urlStructure',

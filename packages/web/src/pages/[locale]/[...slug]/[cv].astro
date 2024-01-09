@@ -1,0 +1,24 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { Cover } from '@components/molecules';
+import { getStaticPathsFromData } from 'src/utilities/api/helpers/getStaticPathsFromData';
+import { getFullPageUrl } from 'src/utilities/api/helpers/getParentPages';
+import { getDataPageCV, type PageCVProps } from 'src/utilities/api/pageCV';
+
+export async function getStaticPaths() {
+	const data = await getDataPageCV();
+	const staticPaths = getStaticPathsFromData({ data, fragment: 'cv' });
+
+	return staticPaths;
+}
+
+interface Props {
+	pageData: PageCVProps;
+}
+
+const { pageData } = Astro.props;
+---
+
+<Layout metaData={pageData.metaData} type={pageData.type}>
+	<h1>{pageData.title}</h1>
+</Layout>

@@ -4,6 +4,7 @@ import {
 	BsGear,
 	BsHouse,
 	BsListColumnsReverse,
+	BsListStars,
 	BsVinyl,
 	BsVinylFill,
 } from 'react-icons/bs'
@@ -25,6 +26,11 @@ export default (S: any) =>
 						title: 'HomePage',
 						type: 'page-home',
 						icon: BsHouse,
+					}),
+					getTranslatedSingleton(S, {
+						title: 'Curriculum Vitae',
+						type: 'page-cv',
+						icon: BsListStars,
 					}),
 					getSingleton(S, {
 						title: 'Discography',
