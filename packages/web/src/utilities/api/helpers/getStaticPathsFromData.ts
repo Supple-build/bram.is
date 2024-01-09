@@ -21,7 +21,10 @@ export const getStaticPathsFromData = ({
 				)
 				.map((page) => ({
 					params: {
-						locale: page.localeID || localeCollection[0].id,
+						locale:
+							page.localeID && page.localeID !== localeCollection[0].id
+								? page.localeID
+								: undefined,
 						slug: getPageFolder(page),
 						...(fragment ? { [fragment]: page.slug } : {}),
 					},
@@ -35,7 +38,10 @@ export const getStaticPathsFromData = ({
 		? [
 				{
 					params: {
-						locale: data.localeID || localeCollection[0].id,
+						locale:
+							data.localeID && data.localeID !== localeCollection[0].id
+								? data.localeID
+								: undefined,
 						slug: getPageFolder(data),
 						...(fragment ? { [fragment]: data.slug } : {}),
 					},
