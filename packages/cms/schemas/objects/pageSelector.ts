@@ -5,7 +5,7 @@ export default defineField({
 	title: 'Page selector',
 	name: 'pageSelector',
 	type: 'reference',
-	to: [{type: 'page-discography'}, {type: 'page-record'}],
+	to: [{type: 'page-cv'}, {type: 'page-discography'}, {type: 'page-record'}],
 	options: {
 		filter: filterReference,
 	},

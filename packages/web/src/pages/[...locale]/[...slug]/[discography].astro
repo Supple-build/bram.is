@@ -10,10 +10,7 @@ import {
 
 export async function getStaticPaths() {
 	const data = await getDataPageDiscography();
-	const staticPaths = getStaticPathsFromData({ data, fragment: 'discography' });
-	console.log('staticPaths', staticPaths);
-
-	return staticPaths;
+	return getStaticPathsFromData({ data, fragment: 'discography' });
 }
 
 interface Props {
@@ -21,7 +18,6 @@ interface Props {
 }
 
 const { pageData } = Astro.props;
-console.log(pageData.records);
 ---
 
 <Layout metaData={pageData.metaData} type={pageData.type}>

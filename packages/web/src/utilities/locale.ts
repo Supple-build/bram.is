@@ -39,7 +39,7 @@ export const localeCollection = [locales.english, locales.dutch];
 export const langPathRegex = /\/([a-z]{2}-?[A-Z]{0,2})\/?/;
 export const getLocaleFromURL = (pathname: string): Locale => {
 	const langCodeMatch = pathname.match(langPathRegex);
-	const langCode = langCodeMatch ? langCodeMatch[1] : 'nl';
+	const langCode = langCodeMatch ? langCodeMatch[1] : localeCollection[0].id;
 
 	return (
 		localeCollection.find((locale) => locale.id === langCode) ||

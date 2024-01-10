@@ -6,3 +6,4 @@ export * from './songQuery';
 export * from './experienceQuery';
 export * from './settingsQuery';
 export * from './parentPage';
+export * from './pageReferenceQuery';

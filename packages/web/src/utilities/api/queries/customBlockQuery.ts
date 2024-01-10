@@ -1,4 +1,5 @@
 import { PortableText } from 'astro-portabletext';
+import { pageReferenceInSelectQuery } from '.';
 type PortableTextProps = Parameters<typeof PortableText>[0];
 
 export interface CustomBlockProps {
@@ -12,7 +13,12 @@ export const customBlockQuery = ({ name }: { name: string }): string =>
 		markDefs[]{
 			...,
 			_type == "link" => @{
-				href,
+				"slugCollection": select(
+					defined(href) => {
+						"slug": href,
+					},
+					${pageReferenceInSelectQuery()},
+				),
 			},
 		},
 	}`;
