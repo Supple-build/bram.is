@@ -30,6 +30,10 @@ export const getStaticPathsFromData = ({
 					},
 					props: {
 						pageData: page,
+						locale:
+							localeCollection.filter(
+								(locale) => locale.id === page.localeID,
+							)[0] || localeCollection[0],
 						...(includePagesData ? { pagesData: data } : {}),
 					},
 				}))
@@ -47,6 +51,10 @@ export const getStaticPathsFromData = ({
 					},
 					props: {
 						pageData: data,
+						locale:
+							localeCollection.filter(
+								(locale) => locale.id === data.localeID,
+							)[0] || localeCollection[0],
 					},
 				},
 		  ]
