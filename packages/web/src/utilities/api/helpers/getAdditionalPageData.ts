@@ -12,16 +12,18 @@ const getDataForAlernativeTranslations = (pages: any) =>
 		...page,
 		alternativeTranslations: page.alternativeTranslations
 			? page.alternativeTranslations
+					// filter out null values
 					.filter((alternative: any) => alternative)
+					// filter out current page
+					.filter((alternative: any) => alternative.localeID !== page.localeID)
+					// Build up alterantiveTranslations object
 					.map((alternative: any) => ({
 						...alternative,
 						href: `${
 							alternative.subFolderReference
 								? `${getPageFolder(alternative)}/`
 								: ''
-						}${alternative.theme ? `${alternative.theme.slug}/` : ''}${
-							alternative.slug || ''
-						}`,
+						}${alternative.slug || ''}`,
 						locale: localeCollection.filter(
 							(locale) => locale.id === alternative.localeID,
 						)[0],

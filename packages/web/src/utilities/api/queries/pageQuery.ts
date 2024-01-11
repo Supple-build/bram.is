@@ -16,7 +16,7 @@ export interface PageProps extends MetaDataProps, ParentPageProps {
 	createdAt: string;
 	updatedAt: string;
 	id: string;
-	alternativeTranslations: AlternativeTranslationProps;
+	alternativeTranslations: AlternativeTranslationProps[];
 	localeID?: string;
 	slug?: string;
 }

@@ -20,7 +20,11 @@ interface Props {
 const { pageData } = Astro.props;
 ---
 
-<Layout metaData={pageData.metaData} type={pageData.type}>
+<Layout
+	metaData={pageData.metaData}
+	type={pageData.type}
+	alternativeTranslations={pageData.alternativeTranslations}
+>
 	<h1>{pageData.title}</h1>
 
 	{

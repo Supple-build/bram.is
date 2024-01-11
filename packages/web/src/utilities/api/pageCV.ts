@@ -1,3 +1,4 @@
+import { getAdditionalPageData } from './helpers/getAdditionalPageData';
 import {
 	pageQuery,
 	type PageProps,
@@ -22,5 +23,7 @@ export async function getDataPageCV(): Promise<PageCVProps | PageCVProps[]> {
 		projection: projectionPageCV,
 		multiple: true,
 	});
-	return await getSanityData({ query });
+	const data = await getSanityData({ query });
+
+	return getAdditionalPageData(data);
 }

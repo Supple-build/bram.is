@@ -21,6 +21,10 @@ const pageData: PageHomeProps = pagesData.filter(
 )[0];
 ---
 
-<Layout metaData={pageData.metaData} skipMetaTitleSuffix>
+<Layout
+	metaData={pageData.metaData}
+	skipMetaTitleSuffix
+	alternativeTranslations={pageData.alternativeTranslations}
+>
 	<h1>{pageData.title}</h1>
 </Layout>
