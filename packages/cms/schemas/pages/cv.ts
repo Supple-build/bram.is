@@ -44,20 +44,64 @@ export default defineType({
 			title: 'Title',
 			name: 'title',
 			type: 'string',
+			validation: (Rule) => Rule.required(),
 		}),
 
 		defineField({
 			title: 'Experience',
 			name: 'experience',
-			type: 'array',
-			of: [
-				{
-					type: 'reference',
-					to: [{type: 'experience'}],
-					options: {
-						filter: filterReference,
-					},
-				},
+			type: 'object',
+			fields: [
+				defineField({
+					title: 'Title',
+					name: 'title',
+					type: 'string',
+					validation: (Rule) => Rule.required(),
+				}),
+
+				defineField({
+					title: 'Items',
+					name: 'items',
+					type: 'array',
+					validation: (Rule) => Rule.required(),
+					of: [
+						{
+							type: 'reference',
+							to: [{type: 'experience'}],
+							options: {
+								filter: filterReference,
+							},
+						},
+					],
+				}),
+			],
+		}),
+
+		defineField({
+			title: 'Education',
+			name: 'education',
+			type: 'object',
+			fields: [
+				defineField({
+					title: 'Title',
+					name: 'title',
+					type: 'string',
+				}),
+
+				defineField({
+					title: 'Items',
+					name: 'items',
+					type: 'array',
+					of: [
+						{
+							type: 'reference',
+							to: [{type: 'education'}],
+							options: {
+								filter: filterReference,
+							},
+						},
+					],
+				}),
 			],
 		}),
 

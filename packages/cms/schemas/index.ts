@@ -8,6 +8,7 @@ import recordPage from './pages/record'
 import settingsDocument from './documents/settings'
 import employmentTypeDocument from './documents/employmentType'
 import experienceDocument from './documents/experience'
+import educationDocument from './documents/education'
 
 // Objects
 import metaDataObject from './objects/metaData'
@@ -24,6 +25,7 @@ export const schemaTypes = [
 	settingsDocument,
 	employmentTypeDocument,
 	experienceDocument,
+	educationDocument,
 	// Objects
 	metaDataObject,
 	pageSelectorObject,

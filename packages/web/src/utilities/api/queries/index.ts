@@ -4,6 +4,7 @@ export * from './customBlockQuery';
 export * from './imageQuery';
 export * from './songQuery';
 export * from './experienceQuery';
+export * from './educationQuery';
 export * from './settingsQuery';
 export * from './parentPage';
 export * from './pageReferenceQuery';

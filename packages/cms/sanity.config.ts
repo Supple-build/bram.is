@@ -22,7 +22,14 @@ export default defineConfig({
 		documentInternationalization({
 			// Required configuration
 			supportedLanguages: languages,
-			schemaTypes: ['settings', 'experience', 'employmentType', 'page-home'],
+			schemaTypes: [
+				'settings',
+				'experience',
+				'education',
+				'employmentType',
+				'page-home',
+				'page-cv',
+			],
 			weakReferences: true,
 		}),
 	],

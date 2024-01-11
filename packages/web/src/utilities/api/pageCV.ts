@@ -4,17 +4,33 @@ import {
 	type PageProps,
 	experienceQuery,
 	type ExperienceProps,
+	educationQuery,
+	type EducationProps,
 } from './queries';
 import { getSanityData } from './sanity';
 
 export interface PageCVProps extends PageProps {
 	title: string;
-	experience: ExperienceProps[];
+	experience: {
+		title: string;
+		items: ExperienceProps[];
+	};
+	education?: {
+		title?: string;
+		items?: EducationProps[];
+	};
 }
 
 export const projectionPageCV = `{
 	title,
-	experience[]->${experienceQuery({ name: '' })},
+	experience{
+		title,
+		items[]->${experienceQuery({ name: '' })},
+	},
+	education{
+		title,
+		items[]->${educationQuery({ name: '' })},
+	},
 }`;
 
 export async function getDataPageCV(): Promise<PageCVProps | PageCVProps[]> {

@@ -3,6 +3,9 @@ import { ContentBlock } from '@components/elements';
 import Layout from '../../../layouts/Layout.astro';
 import { getStaticPathsFromData } from 'src/utilities/api/helpers/getStaticPathsFromData';
 import { getDataPageCV, type PageCVProps } from 'src/utilities/api/pageCV';
+import { stringToSlug } from 'src/utilities/stringToSlug';
+import { formatMonthYearDate } from 'src/utilities/date';
+import { getLocaleFromURL } from 'src/utilities/locale';
 
 export async function getStaticPaths() {
 	const data = await getDataPageCV();
@@ -16,6 +19,9 @@ interface Props {
 }
 
 const { pageData } = Astro.props;
+const locale = getLocaleFromURL(Astro.url.pathname);
+
+console.log('pageData', pageData.experience);
 ---
 
 <Layout
@@ -24,16 +30,62 @@ const { pageData } = Astro.props;
 	alternativeTranslations={pageData.alternativeTranslations}
 >
 	<h1>{pageData.title}</h1>
-	<ul>
-		{
-			pageData.experience.map((experience) => (
-				<li>
-					{experience.title}{' '}
-					{experience?.content ? (
-						<ContentBlock value={experience.content} />
-					) : null}
-				</li>
-			))
-		}
-	</ul>
+
+	{
+		pageData.experience ? (
+			<section id={stringToSlug(pageData.experience.title)}>
+				<h2>{pageData.experience.title}</h2>
+				<ul>
+					{pageData.experience.items.map((experience) => {
+						const dateStart = new Date(experience.dateStart);
+						const dateEnd = experience.dateEnd
+							? new Date(experience.dateEnd)
+							: undefined;
+						return (
+							<li>
+								<h3 itemprop="jobTitle">{experience.title}</h3>
+								<div
+									itemprop="worksFor"
+									itemscope
+									itemtype="http://schema.org/Organization"
+								>
+									<span itemprop="name">{experience.company}</span>
+									<span>
+										{formatMonthYearDate(dateStart, locale.locale)} -{' '}
+										{dateEnd
+											? formatMonthYearDate(dateEnd, locale.locale)
+											: 'Present'}
+									</span>
+									{experience?.content ? (
+										<div itemprop="description">
+											<ContentBlock value={experience.content} />
+										</div>
+									) : null}
+								</div>
+							</li>
+						);
+					})}
+				</ul>
+			</section>
+		) : null
+	}
+
+	{
+		pageData.education?.items?.length ? (
+			<section id={stringToSlug(pageData.education.title || 'education')}>
+				{pageData.education?.title ? <h2>{pageData.education.title}</h2> : null}
+				<ul>
+					{pageData.education.items.map((education) => (
+						<li>
+							<h3>{education.title}</h3>
+							<p>{education.institution}</p>
+							{education?.content ? (
+								<ContentBlock value={education.content} />
+							) : null}
+						</li>
+					))}
+				</ul>
+			</section>
+		) : null
+	}
 </Layout>

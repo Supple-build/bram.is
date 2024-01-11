@@ -1,12 +1,17 @@
 import {defineType, defineField} from 'sanity'
-import {filterReference} from '../../utilities/filterReference'
 
 export default defineType({
-	title: 'Experience',
-	name: 'experience',
+	title: 'Education',
+	name: 'education',
 	type: 'document',
 	initialValue: {
 		language: 'en',
+	},
+	preview: {
+		select: {
+			title: 'title',
+			subtitle: 'institution',
+		},
 	},
 	fields: [
 		defineField({
@@ -17,42 +22,17 @@ export default defineType({
 		}),
 
 		defineField({
-			title: 'Title/Role',
+			title: 'Title',
 			name: 'title',
 			type: 'string',
 			validation: (Rule) => Rule.required(),
 		}),
 
 		defineField({
-			title: 'Company',
-			name: 'company',
+			title: 'Institution',
+			name: 'institution',
 			type: 'string',
 			validation: (Rule) => Rule.required(),
-		}),
-
-		defineField({
-			title: 'Employment type',
-			name: 'employmentType',
-			type: 'reference',
-			validation: (Rule) => Rule.required(),
-			to: [{type: 'employmentType'}],
-			options: {
-				disableNew: true,
-				filter: filterReference,
-			},
-		}),
-
-		defineField({
-			title: 'URL',
-			name: 'url',
-			type: 'url',
-		}),
-
-		defineField({
-			title: 'Image',
-			name: 'image',
-			description: '1440x900',
-			type: 'image',
 		}),
 
 		defineField({
@@ -66,6 +46,19 @@ export default defineType({
 			title: 'End date',
 			name: 'dateEnd',
 			type: 'date',
+			validation: (Rule) => Rule.required(),
+		}),
+
+		defineField({
+			title: 'City',
+			name: 'city',
+			type: 'string',
+		}),
+
+		defineField({
+			title: 'Country',
+			name: 'country',
+			type: 'string',
 		}),
 
 		defineField({

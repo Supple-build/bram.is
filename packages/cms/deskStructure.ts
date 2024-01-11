@@ -1,5 +1,6 @@
 import {
 	BsBriefcase,
+	BsEasel,
 	BsFileRichtext,
 	BsFiletypeDoc,
 	BsGear,
@@ -55,6 +56,11 @@ export default (S: any) =>
 						title: 'Experience',
 						type: 'experience',
 						icon: BsListColumnsReverse,
+					}),
+					getTranslatedDocumentList(S, {
+						title: 'Education',
+						type: 'education',
+						icon: BsEasel,
 					}),
 					getTranslatedDocumentList(S, {
 						title: 'Employment Type',

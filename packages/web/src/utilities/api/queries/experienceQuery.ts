@@ -2,8 +2,8 @@ import { customBlockQuery, type CustomBlockProps, type ImageProps } from '.';
 
 export type ExperienceProps = {
 	title: string;
-	role: string;
 	employmentType: string;
+	company: string;
 	url?: string;
 	image?: ImageProps;
 	dateStart: string;
@@ -18,8 +18,8 @@ export function experienceQuery({
 }): string {
 	return `${name}{
 		title,
-		role,
 		"employmentType": employmentType->title,
+		company,
 		url,
 		image,
 		dateStart,
