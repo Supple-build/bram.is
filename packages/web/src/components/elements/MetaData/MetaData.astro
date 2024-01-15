@@ -1,19 +1,16 @@
 ---
-import type {
-	MetaDataProps,
-	PageProps,
-	SettingsProps,
-} from 'src/utilities/api/queries';
+import type { MetaDataProps, PageProps } from 'src/utilities/api/queries';
 import { useSettings } from 'src/utilities/api/queries';
 import getSanityImage from 'src/utilities/api/sanity/getSanityImage';
-import { localeCollection } from 'src/utilities/locale';
+import { getLocaleFromURL, localeCollection } from 'src/utilities/locale';
 export interface Props extends MetaDataProps {
 	skipMetaTitleSuffix?: boolean;
 	alternativeTranslations?: PageProps['alternativeTranslations'];
 }
 
 const { metaData, skipMetaTitleSuffix, alternativeTranslations } = Astro.props;
-const settings: SettingsProps = await useSettings();
+const locale = getLocaleFromURL(Astro.url.pathname);
+const settings = await useSettings({ locale });
 
 const title = `${metaData.title}${
 	!skipMetaTitleSuffix ? ` | ${settings.metaTitleSuffix}` : ''
