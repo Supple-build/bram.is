@@ -1,0 +1,63 @@
+---
+import { ContentBlock } from '@components/elements';
+import { type HTMLAttributes } from 'astro/types';
+import { useSettings, type CustomBlockProps } from 'src/utilities/api/queries';
+import { formatMonthYearDate } from 'src/utilities/date';
+import { getLocaleFromURL } from 'src/utilities/locale';
+
+interface Props extends HTMLAttributes<'section'> {
+	title: string;
+	company: string;
+	content?: CustomBlockProps['value'];
+	dateStart: string;
+	dateEnd?: string;
+}
+
+const {
+	class: className,
+	title,
+	company,
+	content,
+	dateStart,
+	dateEnd,
+	...attrs
+} = Astro.props;
+const locale = getLocaleFromURL(Astro.url.pathname);
+const settings = await useSettings({ locale });
+
+const currentJob = !dateEnd;
+const startDate = new Date(dateStart);
+const endDate = dateEnd ? new Date(dateEnd) : undefined;
+---
+
+<section
+	class={`c-job${className ? ` | ${className}` : ''}`}
+	{...attrs}
+	itemprop={currentJob ? 'worksFor' : 'alumniOf'}
+	itemscope
+	itemtype="http://schema.org/Organization"
+>
+	<h3 itemprop="jobTitle">{title}</h3>
+	<span itemprop="name">{company}</span>
+	<span>
+		{formatMonthYearDate(startDate, locale.locale)} -
+		{
+			endDate
+				? formatMonthYearDate(endDate, locale.locale)
+				: settings.labels.present
+		}
+	</span>
+
+	{
+		content ? (
+			<div itemprop="description">
+				<ContentBlock value={content} />
+			</div>
+		) : null
+	}
+</section>
+
+<style lang="scss">
+	.c-job {
+	}
+</style>

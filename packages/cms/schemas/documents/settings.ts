@@ -9,6 +9,10 @@ export default defineType({
 			name: 'seo',
 			title: 'SEO',
 		},
+		{
+			name: 'labels',
+			title: 'Generic labels',
+		},
 	],
 	fields: [
 		defineField({
@@ -41,6 +45,22 @@ export default defineType({
 			type: 'image',
 			validation: (Rule) => Rule.required(),
 			group: 'seo',
+		}),
+
+		defineField({
+			title: 'Labels',
+			name: 'labels',
+			type: 'object',
+			group: 'labels',
+			fields: [
+				defineField({
+					title: 'Present',
+					name: 'present',
+					type: 'string',
+					description: 'eg. "January 2024 - Present"',
+					validation: (Rule) => Rule.required(),
+				}),
+			],
 		}),
 	],
 })

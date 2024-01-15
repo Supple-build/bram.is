@@ -6,6 +6,7 @@ import { getDataPageCV, type PageCVProps } from 'src/utilities/api/pageCV';
 import { stringToSlug } from 'src/utilities/stringToSlug';
 import { formatMonthYearDate } from 'src/utilities/date';
 import { getLocaleFromURL } from 'src/utilities/locale';
+import { Job } from '@components/molecules';
 
 export async function getStaticPaths() {
 	const data = await getDataPageCV();
@@ -29,46 +30,63 @@ console.log('pageData', pageData.experience);
 	type={pageData.type}
 	alternativeTranslations={pageData.alternativeTranslations}
 >
-	<h1>{pageData.title}</h1>
+	<div itemscope itemtype="http://schema.org/Person">
+		<h1>{pageData.title}</h1>
 
-	{
-		pageData.experience ? (
-			<section id={stringToSlug(pageData.experience.title)}>
-				<h2>{pageData.experience.title}</h2>
-				<ul>
-					{pageData.experience.items.map((experience) => {
-						const dateStart = new Date(experience.dateStart);
-						const dateEnd = experience.dateEnd
-							? new Date(experience.dateEnd)
-							: undefined;
-						return (
+		<span itemprop="jobTitle">Front-end UI developer</span>
+		<h2>Personal details</h2>
+		<dl>
+			<dt>Name</dt>
+			<dd>
+				<span itemprop="givenName">Bram</span>
+				<span itemprop="familyName">Smulders</span>
+			</dd>
+			<dt>Date of birth</dt>
+			<dd itemprop="birthDate">12/01/1986</dd>
+			<dt>Location</dt>
+			<dd itemprop="homeLocation">
+				Tilburg, <span itemprop="nationality">Netherlands</span>
+			</dd>
+		</dl>
+
+		<ul id="links">
+			<li>
+				<a itemprop="url" rel="me" href="https://github.com/bramsmulders">
+					github
+				</a>
+			</li>
+			<li>
+				<a
+					itemprop="url"
+					rel="me"
+					href="https://www.linkedin.com/in/iambramsmulders/"
+				>
+					linkedin
+				</a>
+			</li>
+		</ul>
+
+		{
+			pageData.experience ? (
+				<section id={stringToSlug(pageData.experience.title)}>
+					<h2>{pageData.experience.title}</h2>
+					<ul>
+						{pageData.experience.items.map((experience) => (
 							<li>
-								<h3 itemprop="jobTitle">{experience.title}</h3>
-								<div
-									itemprop="worksFor"
-									itemscope
-									itemtype="http://schema.org/Organization"
-								>
-									<span itemprop="name">{experience.company}</span>
-									<span>
-										{formatMonthYearDate(dateStart, locale.locale)} -{' '}
-										{dateEnd
-											? formatMonthYearDate(dateEnd, locale.locale)
-											: 'Present'}
-									</span>
-									{experience?.content ? (
-										<div itemprop="description">
-											<ContentBlock value={experience.content} />
-										</div>
-									) : null}
-								</div>
+								<Job
+									title={experience.title}
+									company={experience.company}
+									content={experience.content}
+									dateStart={experience.dateStart}
+									dateEnd={experience.dateEnd}
+								/>
 							</li>
-						);
-					})}
-				</ul>
-			</section>
-		) : null
-	}
+						))}
+					</ul>
+				</section>
+			) : null
+		}
+	</div>
 
 	{
 		pageData.education?.items?.length ? (

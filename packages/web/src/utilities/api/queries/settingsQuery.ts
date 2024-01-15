@@ -11,6 +11,9 @@ export interface SettingsProps {
 	baseUrl: string;
 	metaTitleSuffix: string;
 	ogImage: ImageProps;
+	labels: {
+		present: string;
+	};
 }
 
 export type SettingsByLocale = {
@@ -22,6 +25,9 @@ export const settingsQuery = ({ locale }: { locale: Locale }): string => `
 		baseUrl,
 		metaTitleSuffix,
 		${imageQuery({ name: 'ogImage' })},
+		labels{
+			present,
+		},
 	}`;
 
 let settingsTranslated: SettingsByLocale;
