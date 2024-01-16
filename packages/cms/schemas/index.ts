@@ -14,6 +14,7 @@ import educationDocument from './documents/education'
 import metaDataObject from './objects/metaData'
 import pageSelectorObject from './objects/pageSelector'
 import customBlockObject from './objects/customBlock'
+import linkObject from './objects/link'
 
 export const schemaTypes = [
 	// Pages
@@ -30,4 +31,5 @@ export const schemaTypes = [
 	metaDataObject,
 	pageSelectorObject,
 	customBlockObject,
+	linkObject,
 ]

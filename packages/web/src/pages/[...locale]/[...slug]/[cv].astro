@@ -7,6 +7,7 @@ import { stringToSlug } from 'src/utilities/stringToSlug';
 import { formatMonthYearDate } from 'src/utilities/date';
 import { getLocaleFromURL } from 'src/utilities/locale';
 import { Job } from '@components/molecules';
+import { useSettings } from 'src/utilities/api/queries';
 
 export async function getStaticPaths() {
 	const data = await getDataPageCV();
@@ -21,6 +22,7 @@ interface Props {
 
 const { pageData } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
+const settings = await useSettings({ locale });
 
 console.log('pageData', pageData.experience);
 ---
@@ -36,34 +38,31 @@ console.log('pageData', pageData.experience);
 		<span itemprop="jobTitle">Front-end UI developer</span>
 		<h2>Personal details</h2>
 		<dl>
-			<dt>Name</dt>
+			<dt>{settings.labels.name}</dt>
 			<dd>
-				<span itemprop="givenName">Bram</span>
-				<span itemprop="familyName">Smulders</span>
+				<span itemprop="givenName">{settings.personal.givenName}</span>
+				<span itemprop="familyName">{settings.personal.familyName}</span>
 			</dd>
-			<dt>Date of birth</dt>
-			<dd itemprop="birthDate">12/01/1986</dd>
-			<dt>Location</dt>
+			<dt>{settings.labels.dateOfBirth}</dt>
+			<dd itemprop="birthDate">{settings.personal.birthDate}</dd>
+			<dt>{settings.labels.location}</dt>
 			<dd itemprop="homeLocation">
-				Tilburg, <span itemprop="nationality">Netherlands</span>
+				{settings.personal.city}, <span itemprop="nationality"
+					>{settings.personal.country}</span
+				>
 			</dd>
 		</dl>
 
 		<ul id="links">
-			<li>
-				<a itemprop="url" rel="me" href="https://github.com/bramsmulders">
-					github
-				</a>
-			</li>
-			<li>
-				<a
-					itemprop="url"
-					rel="me"
-					href="https://www.linkedin.com/in/iambramsmulders/"
-				>
-					linkedin
-				</a>
-			</li>
+			{
+				settings.personal.links.map((link) => (
+					<li>
+						<a itemprop="url" rel="me" href={link.href}>
+							{link.label}
+						</a>
+					</li>
+				))
+			}
 		</ul>
 
 		{

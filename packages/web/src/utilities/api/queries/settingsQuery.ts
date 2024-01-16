@@ -3,8 +3,8 @@ import {
 	type localeCollection,
 	type Locale,
 } from 'src/utilities/locale';
-import type { ImageProps } from '.';
-import { imageQuery } from '.';
+import type { ImageProps, LinkProps } from '.';
+import { imageQuery, linkQuery } from '.';
 import { getSanityData } from '../sanity';
 
 export interface SettingsProps {
@@ -12,7 +12,19 @@ export interface SettingsProps {
 	metaTitleSuffix: string;
 	ogImage: ImageProps;
 	labels: {
+		name: string;
+		dateOfBirth: string;
+		location: string;
 		present: string;
+	};
+	personal: {
+		givenName: string;
+		familyName: string;
+		birthDate: string;
+		jobTitle: string;
+		city: string;
+		country: string;
+		links: LinkProps[];
 	};
 }
 
@@ -26,7 +38,19 @@ export const settingsQuery = ({ locale }: { locale: Locale }): string => `
 		metaTitleSuffix,
 		${imageQuery({ name: 'ogImage' })},
 		labels{
+			name,
+			dateOfBirth,
+			location,
 			present,
+		},
+		personal{
+			givenName,
+			familyName,
+			birthDate,
+			jobTitle,
+			city,
+			country,
+			${linkQuery({ multiple: true })},
 		},
 	}`;
 

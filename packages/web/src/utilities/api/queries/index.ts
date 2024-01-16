@@ -8,3 +8,4 @@ export * from './educationQuery';
 export * from './settingsQuery';
 export * from './parentPage';
 export * from './pageReferenceQuery';
+export * from './linkQuery';

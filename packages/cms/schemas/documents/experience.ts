@@ -8,6 +8,12 @@ export default defineType({
 	initialValue: {
 		language: 'en',
 	},
+	preview: {
+		select: {
+			title: 'title',
+			subtitle: 'company',
+		},
+	},
 	fields: [
 		defineField({
 			name: 'language',
