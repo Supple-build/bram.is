@@ -12,16 +12,17 @@ const { class: className, color, accentColor, ...attrs } = Astro.props;
 <div
 	class={`c-swatch | u-color--${color}${className ? ` | ${className}` : ''}`}
 	{...attrs}
-	style={`--c-swatch-color: var(--s-color--${color})`}
+	style={`--c-swatch-color: var(--color--${color})`}
 >
-	<p>{color}</p>
+	<small>{color}</small>
 </div>
 
 <style lang="scss">
 	@layer components {
 		.c-swatch {
 			--_c-swatch-color: var(--c-swatch-color, #ccc);
-
+			padding: var(--s-space-milli);
+			border: 1px solid black;
 			&::before {
 				display: block;
 				inline-size: 100%;
