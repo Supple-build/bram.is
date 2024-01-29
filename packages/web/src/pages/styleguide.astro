@@ -23,24 +23,20 @@ import { Swatch } from '@components/styleguide';
 					<h2>Colors</h2>
 
 					<ul class="c-swatch-grid | o-grid" role="list">
-						<li>
-							<Swatch color="ice-chip" />
-						</li>
-						<li>
-							<Swatch color="celestial-powder" />
-						</li>
-						<li>
-							<Swatch color="marshmallow-blue" />
-						</li>
-						<li>
-							<Swatch color="cotton-candy" />
-						</li>
-						<li>
-							<Swatch color="pink-ciklet" />
-						</li>
-						<li>
-							<Swatch color="black-box" />
-						</li>
+						{
+							[
+								'ice-chip',
+								'celestial-powder',
+								'marshmallow-blue',
+								'cotton-candy',
+								'pink-ciklet',
+								'black-box',
+							].map((color) => (
+								<li>
+									<Swatch color={color} />
+								</li>
+							))
+						}
 					</ul>
 				</section>
 
@@ -49,16 +45,14 @@ import { Swatch } from '@components/styleguide';
 
 					<h3>Font</h3>
 					<dl>
-						<dt>Light</dt>
-						<dd>AaBbCcDdEeGgNn 1234567890</dd>
 						<dt>Regular</dt>
-						<dd>AaBbCcDdEeGgNn 1234567890</dd>
+						<dd class="u-font-weight-regular">AaBbCcDdEeGgNn 1234567890</dd>
 						<dt>Medium</dt>
-						<dd>AaBbCcDdEeGgNn 1234567890</dd>
+						<dd class="u-font-weight-medium">AaBbCcDdEeGgNn 1234567890</dd>
 						<dt>Semi bold</dt>
-						<dd>AaBbCcDdEeGgNn 1234567890</dd>
+						<dd class="u-font-weight-semibold">AaBbCcDdEeGgNn 1234567890</dd>
 						<dt>Bold</dt>
-						<dd>AaBbCcDdEeGgNn 1234567890</dd>
+						<dd class="u-font-weight-bold">AaBbCcDdEeGgNn 1234567890</dd>
 					</dl>
 
 					<h3>Heading levels</h3>

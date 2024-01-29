@@ -2,12 +2,13 @@
 settings.vars
 /  ========================================================================== */
 
-@use '@supple-kit/css/settings/defaults';
-
-$font-weight-scale: (
-	'regular': 400,
-	'medium': 500,
-	'semibold': 600,
-	'bold': 700,
-	'black': 900,
-) !default;
+@use '@supple-kit/css/settings/defaults' with (
+	$color-palette: (
+		'ice-chip': #f3f6f6,
+		'celestial-powder': #a3e4fa,
+		'marshmallow-blue': #90d6f9,
+		'cotton-candy': #ffbcd9,
+		'pink-ciklet': #ffa8c5,
+		'black-box': #0f282f,
+	)
+);
