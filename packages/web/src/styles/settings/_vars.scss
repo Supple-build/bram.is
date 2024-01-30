@@ -4,11 +4,15 @@ settings.vars
 
 @use '@supple-kit/css/settings/defaults' with (
 	$color-palette: (
-		'ice-chip': #f3f6f6,
-		'celestial-powder': #a3e4fa,
-		'marshmallow-blue': #90d6f9,
-		'cotton-candy': #ffbcd9,
-		'pink-ciklet': #ffa8c5,
-		'black-box': #0f282f,
+		'shade': (
+			'ice-chip': #f3f6f6,
+			'black-box': #0f282f,
+		),
+		'brand': (
+			'celestial-powder': #a3e4fa,
+			'marshmallow-blue': #90d6f9,
+			'cotton-candy': #ffbcd9,
+			'pink-ciklet': #ffa8c5,
+		),
 	)
 );

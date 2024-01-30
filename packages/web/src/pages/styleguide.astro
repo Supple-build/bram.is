@@ -1,6 +1,7 @@
 ---
 import Layout from '@layouts/Layout.astro';
 import { Swatch } from '@components/styleguide';
+import { colors } from 'src/styles/settings/colors';
 ---
 
 <Layout
@@ -19,21 +20,14 @@ import { Swatch } from '@components/styleguide';
 			</ul>
 
 			<div class="o-flow">
-				<section id="colors">
+				<section id="colors" class="o-flow">
 					<h2>Colors</h2>
 
 					<ul class="c-swatch-grid | o-grid" role="list">
 						{
-							[
-								'ice-chip',
-								'celestial-powder',
-								'marshmallow-blue',
-								'cotton-candy',
-								'pink-ciklet',
-								'black-box',
-							].map((color) => (
+							colors.map((color) => (
 								<li>
-									<Swatch color={color} />
+									<Swatch {...color} />
 								</li>
 							))
 						}
@@ -113,7 +107,7 @@ import { Swatch } from '@components/styleguide';
 
 <style lang="scss">
 	.c-swatch-grid {
-		--s-grid-min-item-size: 10rem;
+		--s-grid-min-item-size: 20rem;
 		--s-grid-gutter: 2rem;
 	}
 
