@@ -7,44 +7,44 @@ export type Swatch = {
 
 export const colors = [
 	{
-		name: 'ice-chip',
-		color: '#f3f6f6',
+		name: 'white-mink',
+		color: '#efeee9',
 		group: 'shade',
-		accent: 'shade-black-box',
+		accent: 'shade-coalmine',
 	},
 
 	{
-		name: 'black-box',
-		color: '#0f282f',
+		name: 'negroni',
+		color: '#eec7a2',
 		group: 'shade',
-		accent: 'shade-ice-chip',
+		accent: 'shade-coalmine',
 	},
 
 	{
-		name: 'celestial-powder',
-		color: '#a3e4fa',
-		group: 'brand',
-		accent: 'shade-black-box',
+		name: 'coalmine',
+		color: '#220033',
+		group: 'shade',
+		accent: 'shade-white-mink',
 	},
 
 	{
-		name: 'marshmallow-blue',
-		color: '#90d6f9',
+		name: 'brainfreeze',
+		color: '#00eeff',
 		group: 'brand',
-		accent: 'shade-black-box',
+		accent: 'shade-coalmine',
 	},
 
 	{
-		name: 'cotton-candy',
-		color: '#ffbcd9',
+		name: 'purple',
+		color: '#800080',
 		group: 'brand',
-		accent: 'shade-black-box',
+		accent: 'shade-white-mink',
 	},
 
 	{
-		name: 'pink-ciklet',
-		color: '#ffa8c5',
+		name: 'clairvoyant',
+		color: '#480656',
 		group: 'brand',
-		accent: 'shade-black-box',
+		accent: 'shade-white-mink',
 	},
 ] as Swatch[];
