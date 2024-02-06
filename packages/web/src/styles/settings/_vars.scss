@@ -14,5 +14,35 @@ settings.vars
 			'purple': #800080,
 			'clairvoyant': #480656,
 		),
+	),
+	$font-size-scale: (
+		300: (
+			palm: 14px,
+			desk: 16px,
+		),
+		base: (
+			palm: 16px,
+			desk: 20px,
+		),
+		500: (
+			palm: 20px,
+			desk: 24px,
+		),
+		600: (
+			palm: 24px,
+			desk: 28px,
+		),
+		700: (
+			palm: 28px,
+			desk: 32px,
+		),
+		800: (
+			palm: 32px,
+			desk: 36px,
+		),
+		900: (
+			palm: 36px,
+			desk: 40px,
+		),
 	)
 );

@@ -6,12 +6,106 @@ interface Props extends HTMLAttributes<'div'> {}
 const { class: className, ...attrs } = Astro.props;
 ---
 
-<div class={`c-masthead-main${className ? ` | ${className}` : ''}`} {...attrs}>
-	<slot />
+<div class={`c-hero  |  u-background-shade-white-mink${className ? ` | ${className}` : ''}`} {...attrs}>
+	<div class="c-hero__wrap-logo  |  u-background-shade-negroni"></div>
+	<div class="c-hero__wrap-heading  |  u-background-shade-coalmine u-color-shade-white-mink">
+		<h1 class="c-hero__heading  c-hero__square">Hello,<br>i'm Bram Smulders</h1>
+		<div class="c-hero__square">
+			<img class="c-hero__visual" src="https://placehold.co/342x342" alt="Bram Smulders" />
+		</div>
+	</div>
+
+	<div class="c-hero__aside  |  u-background-shade-negroni">
+		<div class="o-retain  o-retain--text">
+			<p>I’m a front-end UI developer from The Netherlands and I work by the credo “Solve for one, extend to many”. This means I specialize in scalable code for apps and websites with a strong focus on accessibility, progressive enhancement and powerful, speedy development.</p>
+		</div>
+	</div>
+
+	<div class="c-hero__content  |  u-background-shade-white-mink">
+		<div class="o-retain  o-retain--text">
+			<p>I’m a front-end UI developer from The Netherlands and I work by the credo “Solve for one, extend to many”. This means I specialize in scalable code for apps and websites with a strong focus on accessibility, progressive enhancement and powerful, speedy development.</p>
+		</div>
+	</div>
+
+	<div class="c-hero__square  c-hero__visual--1  |  u-background-brand-purple">
+		<img class="c-hero__visual" src="https://placehold.co/342x342" alt="Bram Smulders" />
+	</div>
+	<div class="c-hero__visual--2  |  u-background-brand-brainfreeze">
+		<div class="c-hero__square">
+			<img class="c-hero__visual" src="https://placehold.co/342x342" alt="Bram Smulders" />
+		</div>
+	</div>
+	<div class="c-hero__square  c-hero__visual--3  |  u-background-brand-purple">
+		<img class="c-hero__visual" src="https://placehold.co/342x342" alt="Bram Smulders" />
+	</div>
 </div>
 
 <style lang="scss">
-	.c-masthead-main {
+	.c-hero {
 		outline: 1px solid red;
+		display: grid;
+		grid-template-columns: repeat(5, 1fr);
+		grid-template-rows: repeat(2, 1fr) auto;
+		grid-template-areas:
+			"s-aside heading aside aside aside"
+			"s-aside heading visual-1 visual-2 visual-3"
+			"b-s-aside content content visual-2 e-aside";
+	}
+
+	.c-hero__wrap-logo {
+		grid-area: s-aside;
+	}
+
+	.c-hero__wrap-heading {
+		grid-area: heading;
+		grid-template-rows: subgrid;
+		container: c-hero__heading;
+	}
+
+	.c-hero__heading {
+		display: flex;
+		align-items: end;
+		padding-block-end: var(--s-space-base);
+		padding-inline: var(--s-space-base);
+		font-size: 2cqi;
+	}
+
+	.c-hero__visual {
+		display: block;
+		inline-size: 100%;
+		padding: var(--s-space-base);
+		border-radius: 50%;
+		overflow: hidden;
+		object-fit: cover;
+	}
+
+	.c-hero__square {
+		aspect-ratio: 1 / 1;
+	}
+
+	.c-hero__visual--1 {
+		grid-area: visual-1;
+	}
+
+	.c-hero__visual--2 {
+		grid-area: visual-2;
+		mix-blend-mode: darken;
+	}
+
+	.c-hero__visual--3 {
+		grid-area: visual-3;
+	}
+
+	.c-hero__aside {
+		grid-area: aside;
+		display: flex;
+		align-items: end;
+		padding-block-end: var(--s-space-base);
+		padding-inline: var(--s-space-base);
+	}
+
+	.c-hero__content {
+		grid-area: content;
+		padding-block: var(--s-space-kilo);
 	}
 </style>
