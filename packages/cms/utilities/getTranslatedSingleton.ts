@@ -28,8 +28,7 @@ export const getTranslatedSingleton = (S: any, {title, type, icon}: DocumentProp
 					),
 				)
 				.canHandleIntent(
-					(intentName: any, params: any) =>
-						intentName === 'edit' && params.id.startsWith('page-home'),
+					(intentName: any, params: any) => intentName === 'edit' && params.id.startsWith(type),
 				),
 		)
 
