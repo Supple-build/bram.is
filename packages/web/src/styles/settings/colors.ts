@@ -7,44 +7,73 @@ export type Swatch = {
 
 export const colors = [
 	{
-		name: 'white-mink',
-		color: '#efeee9',
-		group: 'shade',
-		accent: 'shade-coalmine',
+		name: 'dark',
+		color: '#12355b',
+		accent: 'light',
 	},
-
 	{
-		name: 'negroni',
-		color: '#eec7a2',
-		group: 'shade',
-		accent: 'shade-coalmine',
+		name: 'mid',
+		color: '#ececec',
 	},
-
 	{
-		name: 'coalmine',
-		color: '#220033',
-		group: 'shade',
-		accent: 'shade-white-mink',
+		name: 'light',
+		color: '#fcfcfc',
 	},
-
 	{
-		name: 'brainfreeze',
-		color: '#00eeff',
+		name: 'primary',
+		color: '#ee4266',
 		group: 'brand',
-		accent: 'shade-coalmine',
 	},
-
 	{
-		name: 'purple',
-		color: '#800080',
+		name: 'primary-glare',
+		color: '#ee9daf',
 		group: 'brand',
-		accent: 'shade-white-mink',
 	},
-
 	{
-		name: 'clairvoyant',
-		color: '#480656',
+		name: 'secondary',
+		color: '#3ddc97',
 		group: 'brand',
-		accent: 'shade-white-mink',
+	},
+	{
+		name: 'tertiary',
+		color: '#161f2b',
+		group: 'brand',
+		accent: 'light',
+	},
+	{
+		name: 'quaternary',
+		color: '#fde74c',
+		group: 'brand',
+	},
+	{
+		name: 'quinary',
+		color: '#5bc0eb',
+		group: 'brand',
+	},
+	{
+		name: 'quinary-shade',
+		color: '#3e809c',
+		group: 'brand',
+		accent: 'light',
+	},
+	{
+		name: 'background',
+		color: '#fcfcfc',
+	},
+	{
+		name: 'foreground',
+		color: '#12355b',
+		accent: 'background',
+	},
+	{
+		name: 'background',
+		color: '#ececec',
+		group: 'slate',
+	},
+	{
+		name: 'foreground',
+		color: '#12355b',
+		group: 'slate',
+		accent: 'slate-background',
 	},
 ] as Swatch[];

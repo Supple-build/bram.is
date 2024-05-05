@@ -1,0 +1,14 @@
+/* ==========================================================================
+elements.links
+/  ========================================================================== */
+
+@layer elements {
+	:where(a) {
+		color: currentColor;
+		text-decoration-color: var(--s-color-brand-purple);
+
+		&:hover {
+			text-decoration: none;
+		}
+	}
+}

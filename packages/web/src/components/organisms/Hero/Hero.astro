@@ -6,106 +6,118 @@ interface Props extends HTMLAttributes<'div'> {}
 const { class: className, ...attrs } = Astro.props;
 ---
 
-<div class={`c-hero  |  u-background-shade-white-mink${className ? ` | ${className}` : ''}`} {...attrs}>
-	<div class="c-hero__wrap-logo  |  u-background-shade-negroni"></div>
-	<div class="c-hero__wrap-heading  |  u-background-shade-coalmine u-color-shade-white-mink">
-		<h1 class="c-hero__heading  c-hero__square">Hello,<br>i'm Bram Smulders</h1>
-		<div class="c-hero__square">
-			<img class="c-hero__visual" src="https://placehold.co/342x342" alt="Bram Smulders" />
+<header class={`c-hero${className ? ` | ${className}` : ''}`} {...attrs}>
+	<div class="c-hero__wrap-visual">
+		<img
+			class="c-hero__visual"
+			src="https://placehold.co/342x342"
+			alt="Bram Smulders"
+		/>
+	</div>
+	<div class="c-hero__body">
+		<div class="o-retain o-retain--text | o-flow">
+			<hgroup>
+				<h1>
+					<span class="c-hero__salutation">Hi,</span>
+					 I'm <span class="u-color-brand-primary"> Bram Smulders</span>
+				</h1>
+				<p>
+					A <span class="u-color-brand-primary">Front-end UI developer</span>
+					 from <span class="u-color-brand-primary">The Netherlands</span>.
+				</p>
+			</hgroup>
+			<p>
+				I work by the credo “Solve for one, extend to many”. This means I
+				specialize in scalable code for apps and websites with a strong focus on
+				accessibility, progressive enhancement and powerful, speedy development.
+			</p>
 		</div>
 	</div>
-
-	<div class="c-hero__aside  |  u-background-shade-negroni">
-		<div class="o-retain  o-retain--text">
-			<p>I’m a front-end UI developer from The Netherlands and I work by the credo “Solve for one, extend to many”. This means I specialize in scalable code for apps and websites with a strong focus on accessibility, progressive enhancement and powerful, speedy development.</p>
-		</div>
-	</div>
-
-	<div class="c-hero__content  |  u-background-shade-white-mink">
-		<div class="o-retain  o-retain--text">
-			<p>I’m a front-end UI developer from The Netherlands and I work by the credo “Solve for one, extend to many”. This means I specialize in scalable code for apps and websites with a strong focus on accessibility, progressive enhancement and powerful, speedy development.</p>
-		</div>
-	</div>
-
-	<div class="c-hero__square  c-hero__visual--1  |  u-background-brand-purple">
-		<img class="c-hero__visual" src="https://placehold.co/342x342" alt="Bram Smulders" />
-	</div>
-	<div class="c-hero__visual--2  |  u-background-brand-brainfreeze">
-		<div class="c-hero__square">
-			<img class="c-hero__visual" src="https://placehold.co/342x342" alt="Bram Smulders" />
-		</div>
-	</div>
-	<div class="c-hero__square  c-hero__visual--3  |  u-background-brand-purple">
-		<img class="c-hero__visual" src="https://placehold.co/342x342" alt="Bram Smulders" />
-	</div>
-</div>
+</header>
 
 <style lang="scss">
-	.c-hero {
-		outline: 1px solid red;
-		display: grid;
-		grid-template-columns: repeat(5, 1fr);
-		grid-template-rows: repeat(2, 1fr) auto;
-		grid-template-areas:
-			"s-aside heading aside aside aside"
-			"s-aside heading visual-1 visual-2 visual-3"
-			"b-s-aside content content visual-2 e-aside";
-	}
+	@use '@supple-kit/css/tools/responsive';
 
-	.c-hero__wrap-logo {
-		grid-area: s-aside;
-	}
+	@layer components {
+		.c-hero {
+			--hero-block-padding: var(--s-space-tera);
+			--hero-image-size-min: 8rem;
+			--hero-image-size-max: 30rem;
+			--hero-image-size: minmax(
+				calc(var(--hero-image-size-min) / 2),
+				calc(var(--hero-image-size-max) / 2)
+			);
+			--hero-visual-spacing: #{responsive.lock(2px, 24px, 'palm', 'desk')};
+			--hero-visual-border-size: #{responsive.lock(1px, 5px, 'palm', 'desk')};
+			display: grid;
+			grid-auto-flow: column;
 
-	.c-hero__wrap-heading {
-		grid-area: heading;
-		grid-template-rows: subgrid;
-		container: c-hero__heading;
-	}
+			&:before {
+				content: '';
+				margin-block: var(--hero-block-padding);
+				grid-column: image-start / image-end;
+				grid-row: 1 / -1;
+				border-radius: 100%;
+				inline-size: 100%;
+				aspect-ratio: 1 / 1;
+				// margin-block-start: calc(var(--s-space-tera) - var(--s-space-base));
+				border: var(--hero-visual-border-size) solid
+					var(--s-color-brand-secondary);
+				place-self: center start;
+			}
+			&:after {
+				content: '';
+				grid-column: bg-start / bg-end;
+				grid-row: 1 / -1;
+				background-color: var(--s-color-slate-background);
+				border-end-start-radius: var(--s-space-kilo);
+				z-index: 1;
+			}
+		}
 
-	.c-hero__heading {
-		display: flex;
-		align-items: end;
-		padding-block-end: var(--s-space-base);
-		padding-inline: var(--s-space-base);
-		font-size: 2cqi;
-	}
+		@media (--lap) {
+			.c-hero {
+				grid-template-columns:
+					[full-start] var(--s-space-base)
+					[image-start] var(--hero-image-size) [bg-start] var(
+						--hero-image-size
+					) [image-end] var(--s-space-base)
+					[body-start] auto [body-end] var(--s-space-base)
+					[bg-end full-end];
+			}
+		}
 
-	.c-hero__visual {
-		display: block;
-		inline-size: 100%;
-		padding: var(--s-space-base);
-		border-radius: 50%;
-		overflow: hidden;
-		object-fit: cover;
-	}
+		.c-hero__wrap-visual {
+			inline-size: 100%;
+			padding: calc(
+				var(--hero-visual-spacing) + var(--hero-visual-border-size)
+			);
+			// padding-inline: var(--s-space-base);
+			grid-column: image-start / image-end;
+			grid-row: 1 / -1;
+			z-index: 2;
+			aspect-ratio: 1 / 1;
+			place-self: center start;
 
-	.c-hero__square {
-		aspect-ratio: 1 / 1;
-	}
+			img {
+				inline-size: 100%;
+				aspect-ratio: 1 / 1;
+				border-radius: 100%;
+				object-fit: cover;
+			}
+		}
 
-	.c-hero__visual--1 {
-		grid-area: visual-1;
-	}
+		.c-hero__body {
+			padding-block: var(--s-space-kilo);
+			grid-row: 1 / -1;
+			grid-column: body-start / body-end;
+			place-self: center start;
+			z-index: 2;
+		}
 
-	.c-hero__visual--2 {
-		grid-area: visual-2;
-		mix-blend-mode: darken;
-	}
-
-	.c-hero__visual--3 {
-		grid-area: visual-3;
-	}
-
-	.c-hero__aside {
-		grid-area: aside;
-		display: flex;
-		align-items: end;
-		padding-block-end: var(--s-space-base);
-		padding-inline: var(--s-space-base);
-	}
-
-	.c-hero__content {
-		grid-area: content;
-		padding-block: var(--s-space-kilo);
+		.c-hero__salutation {
+			display: block;
+			font-size: var(--s-font-size-600);
+		}
 	}
 </style>

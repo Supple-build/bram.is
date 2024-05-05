@@ -8,6 +8,7 @@ import { formatMonthYearDate } from 'src/utilities/date';
 import { getLocaleFromURL } from 'src/utilities/locale';
 import { Job } from '@components/molecules';
 import { useSettings } from 'src/utilities/api/queries';
+import { Hero } from '@components/organisms/Hero';
 
 export async function getStaticPaths() {
 	const data = await getDataPageCV();
@@ -33,76 +34,81 @@ console.log('pageData', pageData.experience);
 	alternativeTranslations={pageData.alternativeTranslations}
 >
 	<div itemscope itemtype="http://schema.org/Person">
-		<h1>{pageData.title}</h1>
-
-		<span itemprop="jobTitle">Front-end UI developer</span>
-		<h2>Personal details</h2>
-		<dl>
-			<dt>{settings.labels.name}</dt>
-			<dd>
-				<span itemprop="givenName">{settings.personal.givenName}</span>
-				<span itemprop="familyName">{settings.personal.familyName}</span>
-			</dd>
-			<dt>{settings.labels.dateOfBirth}</dt>
-			<dd itemprop="birthDate">{settings.personal.birthDate}</dd>
-			<dt>{settings.labels.location}</dt>
-			<dd itemprop="homeLocation">
-				{settings.personal.city}, <span itemprop="nationality"
-					>{settings.personal.country}</span
-				>
-			</dd>
-		</dl>
-
-		<ul id="links">
+		<Hero />
+		<section class="o-flow">
 			{
-				settings.personal.links.map((link) => (
-					<li>
-						<a itemprop="url" rel="me" href={link.href}>
-							{link.label}
-						</a>
-					</li>
-				))
+				pageData.experience ? (
+					<section id={stringToSlug(pageData.experience.title)}>
+						<h2>{pageData.experience.title}</h2>
+						<ul class="o-flow" role="list">
+							{pageData.experience.items.map((experience) => (
+								<li>
+									<Job
+										title={experience.title}
+										company={experience.company}
+										content={experience.content}
+										dateStart={experience.dateStart}
+										dateEnd={experience.dateEnd}
+									/>
+								</li>
+							))}
+						</ul>
+					</section>
+				) : null
 			}
-		</ul>
 
-		{
-			pageData.experience ? (
-				<section id={stringToSlug(pageData.experience.title)}>
-					<h2>{pageData.experience.title}</h2>
-					<ul>
-						{pageData.experience.items.map((experience) => (
-							<li>
-								<Job
-									title={experience.title}
-									company={experience.company}
-									content={experience.content}
-									dateStart={experience.dateStart}
-									dateEnd={experience.dateEnd}
-								/>
-							</li>
-						))}
-					</ul>
-				</section>
-			) : null
-		}
-	</div>
+			{
+				pageData.education?.items?.length ? (
+					<section id={stringToSlug(pageData.education.title || 'education')}>
+						{pageData.education?.title ? (
+							<h2>{pageData.education.title}</h2>
+						) : null}
+						<ul>
+							{pageData.education.items.map((education) => (
+								<li>
+									<h3>{education.title}</h3>
+									<p>{education.institution}</p>
+									{education?.content ? (
+										<ContentBlock value={education.content} />
+									) : null}
+								</li>
+							))}
+						</ul>
+					</section>
+				) : null
+			}
+		</section>
 
-	{
-		pageData.education?.items?.length ? (
-			<section id={stringToSlug(pageData.education.title || 'education')}>
-				{pageData.education?.title ? <h2>{pageData.education.title}</h2> : null}
-				<ul>
-					{pageData.education.items.map((education) => (
+		<section>
+			<dl>
+				<dt>{settings.labels.name}</dt>
+				<dd>
+					<span itemprop="givenName">{settings.personal.givenName}</span>
+					<span itemprop="familyName">{settings.personal.familyName}</span>
+				</dd>
+				<dt>{settings.labels.dateOfBirth}</dt>
+				<dd itemprop="birthDate">{settings.personal.birthDate}</dd>
+				<dt>{settings.labels.location}</dt>
+				<dd itemprop="homeLocation">
+					{settings.personal.city}, <span itemprop="nationality"
+						>{settings.personal.country}</span
+					>
+				</dd>
+				<dt>Jobtitle</dt>
+				<dd itemprop="jobTitle">{settings.personal.jobTitle}</dd>
+			</dl>
+
+			<ul id="links" role="list">
+				{
+					settings.personal.links.map((link) => (
 						<li>
-							<h3>{education.title}</h3>
-							<p>{education.institution}</p>
-							{education?.content ? (
-								<ContentBlock value={education.content} />
-							) : null}
+							<a itemprop="url" rel="me" href={link.href}>
+								{link.label}
+							</a>
 						</li>
-					))}
-				</ul>
-			</section>
-		) : null
-	}
+					))
+				}
+			</ul>
+		</section>
+	</div>
 </Layout>

@@ -31,22 +31,24 @@ const endDate = dateEnd ? new Date(dateEnd) : undefined;
 ---
 
 <section
-	class={`c-job${className ? ` | ${className}` : ''}`}
+	class={`c-job | o-flow${className ? ` | ${className}` : ''}`}
 	{...attrs}
 	itemprop={currentJob ? 'worksFor' : 'alumniOf'}
 	itemscope
 	itemtype="http://schema.org/Organization"
 >
-	<h3 itemprop="jobTitle">{title}</h3>
-	<span itemprop="name">{company}</span>
-	<span>
-		{formatMonthYearDate(startDate, locale.locale)} -
-		{
-			endDate
-				? formatMonthYearDate(endDate, locale.locale)
-				: settings.labels.present
-		}
-	</span>
+	<hgroup>
+		<h3 itemprop="jobTitle">{company}</h3>
+		<em itemprop="name">{title}</em>
+		<em>
+			{formatMonthYearDate(startDate, locale.locale)} -
+			{
+				endDate
+					? formatMonthYearDate(endDate, locale.locale)
+					: settings.labels.present
+			}
+		</em>
+	</hgroup>
 
 	{
 		content ? (
@@ -59,5 +61,6 @@ const endDate = dateEnd ? new Date(dateEnd) : undefined;
 
 <style lang="scss">
 	.c-job {
+		--o-flow-gap: var(--s-space-nano);
 	}
 </style>
