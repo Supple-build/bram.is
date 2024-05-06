@@ -9,6 +9,7 @@ import { getLocaleFromURL } from 'src/utilities/locale';
 import { Job } from '@components/molecules';
 import { useSettings } from 'src/utilities/api/queries';
 import { Hero } from '@components/organisms/Hero';
+import { LayerSidebar } from '@components/molecules/Layer';
 
 export async function getStaticPaths() {
 	const data = await getDataPageCV();
@@ -35,11 +36,11 @@ console.log('pageData', pageData.experience);
 >
 	<div itemscope itemtype="http://schema.org/Person">
 		<Hero />
-		<section class="o-flow">
+		<LayerSidebar>
 			{
 				pageData.experience ? (
 					<section id={stringToSlug(pageData.experience.title)}>
-						<h2>{pageData.experience.title}</h2>
+						<h2 class="as-h4">{pageData.experience.title}</h2>
 						<ul class="o-flow" role="list">
 							{pageData.experience.items.map((experience) => (
 								<li>
@@ -56,7 +57,17 @@ console.log('pageData', pageData.experience);
 					</section>
 				) : null
 			}
-
+			<div slot="aside">
+				<h2 class="as-h4">Skills</h2>
+				<p>
+					Lorem ipsum, dolor sit amet consectetur adipisicing elit. Saepe a
+					dignissimos, illum, amet id quaerat natus iusto provident pariatur
+					eligendi tempora fugiat non nisi rerum! Autem voluptatibus harum odit
+					iusto.
+				</p>
+			</div>
+		</LayerSidebar>
+		<section class="o-flow">
 			{
 				pageData.education?.items?.length ? (
 					<section id={stringToSlug(pageData.education.title || 'education')}>

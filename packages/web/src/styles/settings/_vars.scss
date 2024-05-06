@@ -3,6 +3,35 @@ settings.vars
 /  ========================================================================== */
 
 @use '@supple-kit/css/settings/defaults' with (
+	$breakpoints: (
+		palm: 320px,
+		lap: 768px,
+		desk: 960px,
+		wall: 1280px,
+	),
+	$spacing: (
+		nano: 4px,
+		micro: 8px,
+		milli: 16px,
+		base: 24px,
+		kilo: 40px,
+		mega: 56px,
+		giga: 72px,
+		tera: 88px,
+		layer: (
+			palm: 24px,
+			desk: 72px,
+		),
+		layer-radius: (
+			palm: 56px,
+			desk: 80px,
+		),
+		bleed: (
+			palm: 16px,
+			desk: 48px,
+		),
+	),
+
 	$color-palette: (
 		'dark': #12355b,
 		'mid': #ececec,

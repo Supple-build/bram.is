@@ -1,0 +1,50 @@
+---
+import { type HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'div'> {}
+
+const { class: className, ...attrs } = Astro.props;
+---
+
+<section class={`c-layer${className ? ` | ${className}` : ''}`} {...attrs}>
+	<div class="c-layer__body">
+		<slot />
+	</div>
+	<aside class="c-layer__aside">
+		<slot name="aside" />
+	</aside>
+</section>
+
+<style lang="scss">
+	.c-layer {
+		--c-layer-space: var(--s-space-layer);
+		display: grid;
+		background-color: var(--s-color-slate-background);
+		grid-template-rows: [full-start bg-start body-start aside-start] 1fr [aside-end body-end bg-end full-end];
+		grid-template-columns:
+			[full-start bg-start] minmax(var(--s-space-bleed), auto)
+			[body-start] minmax(auto, 55ch) [body-end] var(--s-space-bleed) [bg-end] var(
+				--s-space-bleed
+			)
+			[aside-start] minmax(auto, 32.5ch)
+			[aside-end] minmax(var(--s-space-bleed), auto) [full-end];
+
+		&:before {
+			content: '';
+			background-color: var(--s-color-background);
+			grid-area: bg;
+			border-start-end-radius: var(--s-space-layer-radius);
+			border-end-end-radius: var(--s-space-layer-radius);
+		}
+	}
+
+	.c-layer__body {
+		grid-area: body;
+		padding-block: var(--c-layer-space);
+	}
+
+	.c-layer__aside {
+		grid-area: aside;
+		padding-block: var(--c-layer-space);
+	}
+</style>
