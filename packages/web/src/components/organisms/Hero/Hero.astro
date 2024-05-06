@@ -19,11 +19,11 @@ const { class: className, ...attrs } = Astro.props;
 			<hgroup>
 				<h1>
 					<span class="c-hero__salutation">Hi,</span>
-					 I'm <span class="u-color-brand-primary"> Bram Smulders</span>
+					I'm <span class="u-color-brand-primary"> Bram Smulders</span>
 				</h1>
 				<p>
 					A <span class="u-color-brand-primary">Front-end UI developer</span>
-					 from <span class="u-color-brand-primary">The Netherlands</span>.
+					from <span class="u-color-brand-primary">The Netherlands</span>.
 				</p>
 			</hgroup>
 			<p>
@@ -36,6 +36,7 @@ const { class: className, ...attrs } = Astro.props;
 </header>
 
 <style lang="scss">
+	@use '@supple-kit/css/settings/breakpoints';
 	@use '@supple-kit/css/tools/responsive';
 
 	@layer components {
@@ -79,11 +80,13 @@ const { class: className, ...attrs } = Astro.props;
 			.c-hero {
 				grid-template-columns:
 					[full-start] var(--s-space-base)
-					[image-start] var(--hero-image-size) [bg-start] var(
-						--hero-image-size
-					) [image-end] var(--s-space-base)
+					[image-start] var(--hero-image-size) [bg-start] var(--hero-image-size)
+					[image-end] var(--s-space-base)
 					[body-start] auto [body-end] var(--s-space-base)
 					[bg-end full-end];
+				* {
+					outline: 1px solid red;
+				}
 			}
 		}
 
