@@ -4,7 +4,11 @@ import Layout from '../../../layouts/Layout.astro';
 import { getStaticPathsFromData } from 'src/utilities/api/helpers/getStaticPathsFromData';
 import { getDataPageCV, type PageCVProps } from 'src/utilities/api/pageCV';
 import { stringToSlug } from 'src/utilities/stringToSlug';
-import { formatMonthYearDate } from 'src/utilities/date';
+import {
+	formatDate,
+	formatLongDate,
+	formatMonthYearDate,
+} from 'src/utilities/date';
 import { getLocaleFromURL } from 'src/utilities/locale';
 import { Job } from '@components/molecules';
 import { useSettings } from 'src/utilities/api/queries';
@@ -105,7 +109,14 @@ const now = new Date();
 						<span itemprop="familyName">{settings.personal.familyName}</span>
 					</dd>
 					<dt>{settings.labels.dateOfBirth}</dt>
-					<dd itemprop="birthDate">{settings.personal.birthDate}</dd>
+					<dd itemprop="birthDate">
+						{
+							formatLongDate(
+								new Date(settings.personal.birthDate),
+								locale.locale,
+							)
+						}
+					</dd>
 					<dt>E-mail</dt>
 					<dd>hello@supple.build</dd>
 					<dt>phone</dt>
