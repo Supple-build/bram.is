@@ -79,5 +79,18 @@ export default defineType({
 			name: 'content',
 			type: 'customBlock',
 		}),
+
+		defineField({
+			title: 'Skills used',
+			name: 'skills',
+			type: 'array',
+			validation: (Rule) => Rule.required(),
+			of: [
+				{
+					type: 'reference',
+					to: [{type: 'skills'}],
+				},
+			],
+		}),
 	],
 })

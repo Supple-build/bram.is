@@ -57,6 +57,11 @@ export default (S: any) =>
 						type: 'experience',
 						icon: BsListColumnsReverse,
 					}),
+					getDocumentList(S, {
+						title: 'Skills',
+						type: 'skills',
+						icon: BsListColumnsReverse,
+					}),
 					getTranslatedDocumentList(S, {
 						title: 'Education',
 						type: 'education',

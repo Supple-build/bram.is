@@ -1,0 +1,52 @@
+/* ==========================================================================
+generic.print
+/  ========================================================================== */
+
+@page {
+	size: A4 portrait;
+	margin: 0;
+}
+
+@media print {
+	:root {
+		--s-font-size-base: 10pt;
+		--e-heading-1-font-size: 16pt;
+		--e-heading-2-font-size: 14pt;
+		--e-heading-3-font-size: 14pt;
+		--e-heading-4-font-size: 14pt;
+		--e-heading-5-font-size: 12pt;
+		--e-heading-6-font-size: 10pt;
+
+		--s-space-layer-radius: 16pt;
+		// --o-flow-gap: 24px;
+	}
+
+	header:not(.c-hero),
+	footer {
+		display: none;
+	}
+
+	.c-hero {
+		--hero-block-padding: 24px;
+		--hero-body-block-padding: 24px;
+		--hero-image-size-max: 144px;
+		--hero-visual-spacing: 2px;
+		--hero-visual-border-size: 2px;
+		--hero-salutaion-font-size: 10pt;
+	}
+
+	.c-layer {
+		--c-layer-inner-space: 24px;
+		--c-layer-aside-size: 30ch;
+	}
+
+	.u-print-full {
+		display: flex;
+		flex-direction: column;
+		min-block-size: 100vh;
+	}
+
+	.u-print__section {
+		flex: 1;
+	}
+}

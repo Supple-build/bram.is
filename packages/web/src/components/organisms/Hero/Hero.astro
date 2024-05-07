@@ -10,7 +10,7 @@ const { class: className, ...attrs } = Astro.props;
 	<div class="c-hero__wrap-visual">
 		<img
 			class="c-hero__visual"
-			src="https://placehold.co/342x342"
+			src="/images/avatar/lon-eye.webp"
 			alt="Bram Smulders"
 		/>
 	</div>
@@ -65,8 +65,7 @@ const { class: className, ...attrs } = Astro.props;
 
 			&:before {
 				content: '';
-				grid-row: image-start / image-end;
-				grid-column: image-start / image-end;
+				grid-area: image;
 				border-radius: 100%;
 				inline-size: var(--hero-visual-inline-size);
 				aspect-ratio: 1 / 1;
@@ -76,8 +75,7 @@ const { class: className, ...attrs } = Astro.props;
 			}
 			&:after {
 				content: '';
-				grid-row: bg-start / bg-end;
-				grid-column: bg-start / bg-end;
+				grid-area: bg;
 				background-color: var(--s-color-slate-background);
 				z-index: 1;
 			}
@@ -96,21 +94,13 @@ const { class: className, ...attrs } = Astro.props;
 						auto
 					)
 					[bg-end full-end];
-				// grid-template-columns:
-				// 	[full-bleed-start] var(--s-space-bleed) [full-start] minmax(0, 100%)
-				// 	[image-start] var(--hero-image-size) [bg-start] var(--hero-image-size)
-				// 	[image-end] var(--s-space-base)
-				// 	[body-start] auto [body-end] minmax(0, 100%) [full-end] var(
-				// 		--s-space-bleed
-				// 	)
-				// 	[bg-end full-bleed-end];
 
 				&:before {
 					margin-block: var(--hero-block-padding);
 				}
 
 				&:after {
-					border-end-start-radius: calc(var(--s-space-kilo) * 2);
+					border-end-start-radius: var(--s-space-layer-radius);
 				}
 			}
 		}
@@ -120,8 +110,7 @@ const { class: className, ...attrs } = Astro.props;
 			padding: calc(
 				var(--hero-visual-spacing) + var(--hero-visual-border-size)
 			);
-			grid-row: image-start / image-end;
-			grid-column: image-start / image-end;
+			grid-area: image;
 			z-index: 2;
 			aspect-ratio: 1 / 1;
 			place-self: center center;
@@ -135,19 +124,18 @@ const { class: className, ...attrs } = Astro.props;
 		}
 
 		.c-hero__body {
-			grid-row: body-start / body-end;
-			grid-column: body-start / body-end;
+			grid-area: body;
 			place-self: center start;
 			z-index: 2;
 
 			@media (--lap) {
-				padding-block: var(--s-space-kilo);
+				padding-block: var(--hero-body-block-padding, var(--s-space-kilo));
 			}
 		}
 
 		.c-hero__salutation {
 			display: block;
-			font-size: var(--s-font-size-600);
+			font-size: var(--hero-salutaion-font-size, var(--s-font-size-600));
 		}
 	}
 </style>

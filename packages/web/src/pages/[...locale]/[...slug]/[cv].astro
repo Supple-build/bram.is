@@ -10,6 +10,7 @@ import { Job } from '@components/molecules';
 import { useSettings } from 'src/utilities/api/queries';
 import { Hero } from '@components/organisms/Hero';
 import { LayerSidebar } from '@components/molecules/Layer';
+import { Heading } from '@components/elements/Heading';
 
 export async function getStaticPaths() {
 	const data = await getDataPageCV();
@@ -27,20 +28,27 @@ const locale = getLocaleFromURL(Astro.url.pathname);
 const settings = await useSettings({ locale });
 
 console.log('pageData', pageData.experience);
+const now = new Date();
 ---
 
 <Layout
-	metaData={pageData.metaData}
+	metaData={{
+		...pageData.metaData,
+		title: `CV-Bram_Smulders-${now.getFullYear()}-${now.getMonth() + 1}`,
+	}}
+	skipMetaTitleSuffix
 	type={pageData.type}
 	alternativeTranslations={pageData.alternativeTranslations}
 >
-	<div itemscope itemtype="http://schema.org/Person">
+	<div class="u-print-full" itemscope itemtype="http://schema.org/Person">
 		<Hero />
-		<LayerSidebar>
+		<LayerSidebar class="u-print__section">
 			{
 				pageData.experience ? (
-					<section id={stringToSlug(pageData.experience.title)}>
-						<h2 class="as-h4">{pageData.experience.title}</h2>
+					<div class="o-flow" id={stringToSlug(pageData.experience.title)}>
+						<Heading level={2} styledAs={4} variant="emphasised">
+							{pageData.experience.title}
+						</Heading>
 						<ul class="o-flow" role="list">
 							{pageData.experience.items.map((experience) => (
 								<li>
@@ -54,30 +62,81 @@ console.log('pageData', pageData.experience);
 								</li>
 							))}
 						</ul>
-					</section>
+					</div>
 				) : null
 			}
-			<div slot="aside">
-				<h2 class="as-h4">Skills</h2>
-				<p>
-					Lorem ipsum, dolor sit amet consectetur adipisicing elit. Saepe a
-					dignissimos, illum, amet id quaerat natus iusto provident pariatur
-					eligendi tempora fugiat non nisi rerum! Autem voluptatibus harum odit
-					iusto.
-				</p>
+			<div slot="aside" class="o-flow">
+				<Heading level={2} styledAs={4} variant="emphasised">Skills</Heading>
+				<div>
+					<p>I hold myself to high standards in:</p>
+					<ul>
+						<li>Creating accessible websites/apps</li>
+						<li>Semantic HTML</li>
+						<li>
+							Modern, lightweight, and scalable CSS (incl. Sass or Tailwind
+							CSS).
+						</li>
+						<li>JavaScript (incl. Astro, React & Svelte).</li>
+						<li>Accessible code</li>
+						<li>Responsive design</li>
+						<li>Build tools like Vite, Gulp & NPM.</li>
+						<li>Test suites like Vitest, Jest, BrowserStack & Cypress.</li>
+						<li>
+							Styleguide Driven Development (using tools like Storybook, Astro
+							Starlight & Pattern Lab)
+						</li>
+						<li>Progressive Web Apps</li>
+						<li>Build tools like Vite, Webpack & NPM scripts</li>
+						<li>
+							Agile methodologies like Scrum & Kanban and their tools like Jira
+							or Trello
+						</li>
+						<li>git, style- and JavaScript linters and other tools.</li>
+					</ul>
+				</div>
+
+				<Heading level={2} styledAs={4} variant="emphasised"
+					>Personal details</Heading
+				>
+				<dl class="c-definitions">
+					<dt>{settings.labels.name}</dt>
+					<dd>
+						<span itemprop="givenName">{settings.personal.givenName}</span>
+						<span itemprop="familyName">{settings.personal.familyName}</span>
+					</dd>
+					<dt>{settings.labels.dateOfBirth}</dt>
+					<dd itemprop="birthDate">{settings.personal.birthDate}</dd>
+					<dt>E-mail</dt>
+					<dd>hello@supple.build</dd>
+					<dt>phone</dt>
+					<dd>+31642250861</dd>
+					<dt>{settings.labels.location}</dt>
+					<dd itemprop="homeLocation">
+						{settings.personal.city}, <span itemprop="nationality"
+							>{settings.personal.country}</span
+						>
+					</dd>
+					<!-- <dt>Jobtitle</dt>
+					<dd itemprop="jobTitle">{settings.personal.jobTitle}</dd> -->
+				</dl>
 			</div>
 		</LayerSidebar>
-		<section class="o-flow">
+
+		<!-- <LayerSidebar reversed>
 			{
 				pageData.education?.items?.length ? (
 					<section id={stringToSlug(pageData.education.title || 'education')}>
 						{pageData.education?.title ? (
-							<h2>{pageData.education.title}</h2>
+							<Heading level={2} styledAs={4}>
+								{pageData.education.title}
+							</Heading>
 						) : null}
 						<ul>
 							{pageData.education.items.map((education) => (
 								<li>
-									<h3>{education.title}</h3>
+									<Heading level={3} styledAs={5}>
+										{education.title}
+									</Heading>
 									<p>{education.institution}</p>
 									{education?.content ? (
 										<ContentBlock value={education.content} />
@@ -88,38 +147,24 @@ console.log('pageData', pageData.experience);
 					</section>
 				) : null
 			}
-		</section>
-
-		<section>
-			<dl>
-				<dt>{settings.labels.name}</dt>
-				<dd>
-					<span itemprop="givenName">{settings.personal.givenName}</span>
-					<span itemprop="familyName">{settings.personal.familyName}</span>
-				</dd>
-				<dt>{settings.labels.dateOfBirth}</dt>
-				<dd itemprop="birthDate">{settings.personal.birthDate}</dd>
-				<dt>{settings.labels.location}</dt>
-				<dd itemprop="homeLocation">
-					{settings.personal.city}, <span itemprop="nationality"
-						>{settings.personal.country}</span
-					>
-				</dd>
-				<dt>Jobtitle</dt>
-				<dd itemprop="jobTitle">{settings.personal.jobTitle}</dd>
-			</dl>
-
-			<ul id="links" role="list">
-				{
-					settings.personal.links.map((link) => (
-						<li>
-							<a itemprop="url" rel="me" href={link.href}>
-								{link.label}
-							</a>
-						</li>
-					))
-				}
-			</ul>
-		</section>
+		</LayerSidebar> -->
 	</div>
 </Layout>
+
+<style lang="scss">
+	.c-definitions {
+		// display: grid;
+		// grid-template-columns: 1fr 1fr;
+		dt {
+			text-transform: capitalize;
+			font-weight: bold;
+		}
+		dd {
+			margin-inline-start: 0;
+		}
+
+		dd + dt {
+			margin-block-start: var(--s-space-micro);
+		}
+	}
+</style>
