@@ -4,11 +4,7 @@ import Layout from '../../../layouts/Layout.astro';
 import { getStaticPathsFromData } from 'src/utilities/api/helpers/getStaticPathsFromData';
 import { getDataPageCV, type PageCVProps } from 'src/utilities/api/pageCV';
 import { stringToSlug } from 'src/utilities/stringToSlug';
-import {
-	formatDate,
-	formatLongDate,
-	formatMonthYearDate,
-} from 'src/utilities/date';
+import { formatLongDate } from 'src/utilities/date';
 import { getLocaleFromURL } from 'src/utilities/locale';
 import { Job } from '@components/molecules';
 import { useSettings } from 'src/utilities/api/queries';
@@ -83,14 +79,13 @@ const now = new Date();
 						<li>JavaScript (incl. Astro, React & Svelte).</li>
 						<li>Accessible code</li>
 						<li>Responsive design</li>
-						<li>Build tools like Vite, Gulp & NPM.</li>
+						<li>Build tools like Vite, Gulp, NPM, Yarn & PNPM.</li>
 						<li>Test suites like Vitest, Jest, BrowserStack & Cypress.</li>
 						<li>
 							Styleguide Driven Development (using tools like Storybook, Astro
 							Starlight & Pattern Lab)
 						</li>
 						<li>Progressive Web Apps</li>
-						<li>Build tools like Vite, Webpack & NPM scripts</li>
 						<li>
 							Agile methodologies like Scrum & Kanban and their tools like Jira
 							or Trello
