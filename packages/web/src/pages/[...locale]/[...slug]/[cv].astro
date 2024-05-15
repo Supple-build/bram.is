@@ -4,11 +4,7 @@ import Layout from '../../../layouts/Layout.astro';
 import { getStaticPathsFromData } from 'src/utilities/api/helpers/getStaticPathsFromData';
 import { getDataPageCV, type PageCVProps } from 'src/utilities/api/pageCV';
 import { stringToSlug } from 'src/utilities/stringToSlug';
-import {
-	formatDate,
-	formatLongDate,
-	formatMonthYearDate,
-} from 'src/utilities/date';
+import { formatLongDate } from 'src/utilities/date';
 import { getLocaleFromURL } from 'src/utilities/locale';
 import { Job } from '@components/molecules';
 import { useSettings } from 'src/utilities/api/queries';
