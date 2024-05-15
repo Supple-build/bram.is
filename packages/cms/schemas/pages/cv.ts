@@ -41,10 +41,9 @@ export default defineType({
 		}),
 
 		defineField({
-			title: 'Title',
-			name: 'title',
-			type: 'string',
-			validation: (Rule) => Rule.required(),
+			title: 'Intro',
+			name: 'intro',
+			type: 'customBlock',
 		}),
 
 		defineField({
@@ -73,6 +72,40 @@ export default defineType({
 							},
 						},
 					],
+				}),
+			],
+		}),
+
+		defineField({
+			title: 'Skills',
+			name: 'skills',
+			type: 'object',
+			fields: [
+				defineField({
+					title: 'Title',
+					name: 'title',
+					type: 'string',
+					validation: (Rule) => Rule.required(),
+				}),
+
+				defineField({
+					title: 'Content',
+					name: 'content',
+					type: 'customBlock',
+				}),
+			],
+		}),
+
+		defineField({
+			title: 'Personal info',
+			name: 'personal',
+			type: 'object',
+			fields: [
+				defineField({
+					title: 'Title',
+					name: 'title',
+					type: 'string',
+					validation: (Rule) => Rule.required(),
 				}),
 			],
 		}),

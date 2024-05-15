@@ -15,7 +15,13 @@ export interface SettingsProps {
 		name: string;
 		dateOfBirth: string;
 		location: string;
+		email: string;
+		phone: string;
 		present: string;
+		a: string;
+		from: string;
+		iAm: string;
+		salutation: string;
 	};
 	personal: {
 		givenName: string;
@@ -24,6 +30,8 @@ export interface SettingsProps {
 		jobTitle: string;
 		city: string;
 		country: string;
+		email: string;
+		phone: string;
 		links: LinkProps[];
 	};
 }
@@ -41,16 +49,26 @@ export const settingsQuery = ({ locale }: { locale: Locale }): string => `
 			name,
 			dateOfBirth,
 			location,
+			email,
+			phone,
 			present,
+			a,
+			from,
+			iAm,
+			salutation,
 		},
 		personal{
-			givenName,
-			familyName,
-			birthDate,
-			jobTitle,
-			city,
+			...*[_type == "personal"][0]{
+				givenName,
+				familyName,
+				birthDate,
+				jobTitle,
+				city,
+				email,
+				phone,
+				${linkQuery({ multiple: true })},
+			},
 			country,
-			${linkQuery({ multiple: true })},
 		},
 	}`;
 

@@ -80,10 +80,56 @@ export default defineType({
 				}),
 
 				defineField({
+					title: 'Email',
+					name: 'email',
+					type: 'string',
+					validation: (Rule) => Rule.required(),
+				}),
+
+				defineField({
+					title: 'Phone',
+					name: 'phone',
+					type: 'string',
+					validation: (Rule) => Rule.required(),
+				}),
+
+				defineField({
 					title: 'Present',
 					name: 'present',
 					type: 'string',
 					description: 'eg. "January 2024 - Present"',
+					validation: (Rule) => Rule.required(),
+				}),
+
+				defineField({
+					title: 'A',
+					name: 'a',
+					type: 'string',
+					description: 'eg. `A` Front-end developer',
+					validation: (Rule) => Rule.required(),
+				}),
+
+				defineField({
+					title: 'From',
+					name: 'from',
+					type: 'string',
+					description: 'eg. `from` The Netherlands',
+					validation: (Rule) => Rule.required(),
+				}),
+
+				defineField({
+					title: 'I am',
+					name: 'iAm',
+					type: 'string',
+					description: 'eg. `I am` Bram Smulders',
+					validation: (Rule) => Rule.required(),
+				}),
+
+				defineField({
+					title: 'Salutation',
+					name: 'salutation',
+					type: 'string',
+					description: 'eg. `Hi,` I am Bram Smulders',
 					validation: (Rule) => Rule.required(),
 				}),
 			],
@@ -96,56 +142,9 @@ export default defineType({
 			group: 'personal',
 			fields: [
 				defineField({
-					title: 'First name',
-					name: 'givenName',
-					type: 'string',
-					validation: (Rule) => Rule.required(),
-				}),
-
-				defineField({
-					title: 'Last name',
-					name: 'familyName',
-					type: 'string',
-					validation: (Rule) => Rule.required(),
-				}),
-
-				defineField({
-					title: 'Birth Date',
-					name: 'birthDate',
-					type: 'date',
-					validation: (Rule) => Rule.required(),
-				}),
-
-				defineField({
-					title: 'Job title',
-					name: 'jobTitle',
-					type: 'string',
-					validation: (Rule) => Rule.required(),
-				}),
-
-				defineField({
-					title: 'City',
-					name: 'city',
-					type: 'string',
-					validation: (Rule) => Rule.required(),
-				}),
-
-				defineField({
 					title: 'Country',
 					name: 'country',
 					type: 'string',
-					validation: (Rule) => Rule.required(),
-				}),
-
-				defineField({
-					title: 'Links',
-					name: 'links',
-					type: 'array',
-					of: [
-						{
-							type: 'link',
-						},
-					],
 					validation: (Rule) => Rule.required(),
 				}),
 			],

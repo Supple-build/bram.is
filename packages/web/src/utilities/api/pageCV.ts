@@ -6,14 +6,23 @@ import {
 	type ExperienceProps,
 	educationQuery,
 	type EducationProps,
+	type CustomBlockProps,
+	customBlockQuery,
 } from './queries';
 import { getSanityData } from './sanity';
 
 export interface PageCVProps extends PageProps {
-	title: string;
+	intro: CustomBlockProps['value'];
 	experience: {
 		title: string;
 		items: ExperienceProps[];
+	};
+	skills: {
+		title: string;
+		content: CustomBlockProps['value'];
+	};
+	personal: {
+		title: string;
 	};
 	education?: {
 		title?: string;
@@ -22,10 +31,17 @@ export interface PageCVProps extends PageProps {
 }
 
 export const projectionPageCV = `{
-	title,
+	${customBlockQuery({ name: 'intro' })},
 	experience{
 		title,
 		items[]->${experienceQuery({ name: '' })},
+	},
+	skills{
+		title,
+		${customBlockQuery({ name: 'content' })},
+	},
+	personal{
+		title,
 	},
 	education{
 		title,

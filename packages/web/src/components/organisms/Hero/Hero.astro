@@ -1,36 +1,36 @@
 ---
 import { type HTMLAttributes } from 'astro/types';
 
-interface Props extends HTMLAttributes<'div'> {}
+interface Props extends HTMLAttributes<'div'> {
+	chapeau?: string;
+	title: string;
+	image?: {
+		src: string;
+		alt: string;
+	};
+}
 
-const { class: className, ...attrs } = Astro.props;
+const { chapeau, title, image, class: className, ...attrs } = Astro.props;
 ---
 
 <header class={`c-hero${className ? ` | ${className}` : ''}`} {...attrs}>
-	<div class="c-hero__wrap-visual">
-		<img
-			class="c-hero__visual"
-			src="/images/avatar/lon-eye.webp"
-			alt="Bram Smulders"
-		/>
-	</div>
+	{
+		image && image.src ? (
+			<div class="c-hero__wrap-visual">
+				<img class="c-hero__visual" src={image.src} alt={image.alt || ''} />
+			</div>
+		) : null
+	}
 	<div class="c-hero__body">
 		<div class="o-flow">
 			<hgroup>
 				<h1>
-					<span class="c-hero__salutation">Hi,</span>
-					I'm <span class="u-color-brand-primary"> Bram Smulders</span>
+					{chapeau ? <span class="c-hero__salutation">Hi,</span> : null}
+					{title}
 				</h1>
-				<p>
-					A <span class="u-color-brand-primary">Front-end UI developer</span>
-					from <span class="u-color-brand-primary">The Netherlands</span>.
-				</p>
+				<slot name="payoff" />
 			</hgroup>
-			<p>
-				I work by the credo “Solve for one, extend to many”. This means I
-				specialize in scalable code for apps and websites with a strong focus on
-				accessibility, progressive enhancement and powerful, speedy development.
-			</p>
+			<slot />
 		</div>
 	</div>
 </header>

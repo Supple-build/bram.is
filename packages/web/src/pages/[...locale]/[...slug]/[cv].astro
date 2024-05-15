@@ -15,6 +15,7 @@ import { useSettings } from 'src/utilities/api/queries';
 import { Hero } from '@components/organisms/Hero';
 import { LayerSidebar } from '@components/molecules/Layer';
 import { Heading } from '@components/elements/Heading';
+import CustomBlock from '@components/elements/ContentBlock/CustomBlock.astro';
 
 export async function getStaticPaths() {
 	const data = await getDataPageCV();
@@ -31,21 +32,37 @@ const { pageData } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
 const settings = await useSettings({ locale });
 
-console.log('pageData', pageData.experience);
 const now = new Date();
 ---
 
 <Layout
 	metaData={{
 		...pageData.metaData,
-		title: `CV-Bram_Smulders-${now.getFullYear()}-${now.getMonth() + 1}`,
+		title: `CV-Bram_Smulders-${now.getFullYear()}-${now.getMonth() + 1}-${locale.id}`,
 	}}
 	skipMetaTitleSuffix
 	type={pageData.type}
 	alternativeTranslations={pageData.alternativeTranslations}
 >
 	<div class="u-print-full" itemscope itemtype="http://schema.org/Person">
-		<Hero />
+		<Hero
+			chapeau={settings.labels.salutation}
+			title={`${settings.labels.iAm} ${settings.personal.givenName} ${settings.personal.familyName}.`}
+			image={{
+				src: '/images/avatar/lon-eye.webp',
+				alt: 'Bram Smulders in the London Eye',
+			}}
+		>
+			<p slot="payoff">
+				{settings.labels.a.charAt(0).toUpperCase() + settings.labels.a.slice(1)}
+				<span class="u-color-brand-primary" itemprop="jobTitle"
+					>{settings.personal.jobTitle}</span
+				>
+				{settings.labels.from}
+				<span class="u-color-brand-primary">{settings.personal.country}</span>.
+			</p>
+			<ContentBlock value={pageData.intro} />
+		</Hero>
 		<LayerSidebar class="u-print__section">
 			{
 				pageData.experience ? (
@@ -70,38 +87,18 @@ const now = new Date();
 				) : null
 			}
 			<div slot="aside" class="o-flow">
-				<Heading level={2} styledAs={4} variant="emphasised">Skills</Heading>
+				<Heading level={2} styledAs={4} variant="emphasised">
+					{pageData.skills.title}
+				</Heading>
 				<div>
-					<p>I hold myself to high standards in:</p>
-					<ul>
-						<li>Creating accessible websites/apps</li>
-						<li>Semantic HTML</li>
-						<li>
-							Modern, lightweight, and scalable CSS (incl. Sass or Tailwind
-							CSS).
-						</li>
-						<li>JavaScript (incl. Astro, React & Svelte).</li>
-						<li>Accessible code</li>
-						<li>Responsive design</li>
-						<li>Build tools like Vite, Gulp & NPM.</li>
-						<li>Test suites like Vitest, Jest, BrowserStack & Cypress.</li>
-						<li>
-							Styleguide Driven Development (using tools like Storybook, Astro
-							Starlight & Pattern Lab)
-						</li>
-						<li>Progressive Web Apps</li>
-						<li>Build tools like Vite, Webpack & NPM scripts</li>
-						<li>
-							Agile methodologies like Scrum & Kanban and their tools like Jira
-							or Trello
-						</li>
-						<li>git, style- and JavaScript linters and other tools.</li>
-					</ul>
+					<div class="c-prose c-prose--emphasise | o-flow">
+						<ContentBlock value={pageData.skills.content} />
+					</div>
 				</div>
 
-				<Heading level={2} styledAs={4} variant="emphasised"
-					>Personal details</Heading
-				>
+				<Heading level={2} styledAs={4} variant="emphasised">
+					{pageData.personal.title}
+				</Heading>
 				<dl class="c-definitions">
 					<dt>{settings.labels.name}</dt>
 					<dd>
@@ -117,18 +114,16 @@ const now = new Date();
 							)
 						}
 					</dd>
-					<dt>E-mail</dt>
-					<dd>hello@supple.build</dd>
-					<dt>phone</dt>
-					<dd>+31642250861</dd>
+					<dt>{settings.labels.email}</dt>
+					<dd>{settings.personal.email}</dd>
+					<dt>{settings.labels.phone}</dt>
+					<dd>{settings.personal.phone}</dd>
 					<dt>{settings.labels.location}</dt>
 					<dd itemprop="homeLocation">
 						{settings.personal.city}, <span itemprop="nationality"
 							>{settings.personal.country}</span
 						>
 					</dd>
-					<!-- <dt>Jobtitle</dt>
-					<dd itemprop="jobTitle">{settings.personal.jobTitle}</dd> -->
 				</dl>
 			</div>
 		</LayerSidebar>
@@ -176,6 +171,17 @@ const now = new Date();
 
 		dd + dt {
 			margin-block-start: var(--s-space-micro);
+		}
+	}
+
+	.c-prose {
+	}
+
+	.c-prose--emphasise {
+		:global(em) {
+			// color: var(--s-color-brand-primary);
+			font-weight: 600;
+			font-style: normal;
 		}
 	}
 </style>

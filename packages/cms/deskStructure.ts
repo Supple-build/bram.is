@@ -1,6 +1,7 @@
 import {
 	BsBriefcase,
 	BsEasel,
+	BsFilePerson,
 	BsFileRichtext,
 	BsFiletypeDoc,
 	BsGear,
@@ -81,5 +82,11 @@ export default (S: any) =>
 				title: 'Settings',
 				type: 'settings',
 				icon: BsGear,
+			}),
+
+			getSingleton(S, {
+				title: 'Personal',
+				type: 'personal',
+				icon: BsFilePerson,
 			}),
 		])
