@@ -13,7 +13,10 @@ interface Props extends HTMLAttributes<'div'> {
 const { chapeau, title, image, class: className, ...attrs } = Astro.props;
 ---
 
-<header class={`c-hero${className ? ` | ${className}` : ''}`} {...attrs}>
+<header
+	class={`c-hero${image ? ' c-hero--image' : ''}${className ? ` | ${className}` : ''}`}
+	{...attrs}
+>
 	{
 		image && image.src ? (
 			<div class="c-hero__wrap-visual">
@@ -44,10 +47,8 @@ const { chapeau, title, image, class: className, ...attrs } = Astro.props;
 			--hero-block-padding: var(--s-space-tera);
 			--hero-image-size-min: 8rem;
 			--hero-image-size-max: 30rem;
-			--hero-image-size: minmax(
-				calc(var(--hero-image-size-min) / 2),
-				calc(var(--hero-image-size-max) / 2)
-			);
+			--hero-image-size: 0px;
+			--hero-gutter: var(--s-space-base);
 			--hero-visual-inline-size: min(80%, 320px);
 			--hero-visual-spacing: #{responsive.lock(8px, 24px, 'palm', 'desk')};
 			--hero-visual-border-size: #{responsive.lock(2px, 5px, 'palm', 'desk')};
@@ -64,7 +65,6 @@ const { chapeau, title, image, class: className, ...attrs } = Astro.props;
 				[bg-end full-end];
 
 			&:before {
-				content: '';
 				grid-area: image;
 				border-radius: 100%;
 				inline-size: var(--hero-visual-inline-size);
@@ -81,14 +81,26 @@ const { chapeau, title, image, class: className, ...attrs } = Astro.props;
 			}
 		}
 
+		.c-hero--image {
+			--hero-image-size: minmax(
+				calc(var(--hero-image-size-min) / 2),
+				calc(var(--hero-image-size-max) / 2)
+			);
+
+			&:before {
+				content: '';
+			}
+		}
+
 		@media (--lap) {
 			.c-hero {
 				--hero-visual-inline-size: 100%;
+				--hero-gutter: var(--s-space-bleed);
 				grid-template-rows: [full-start image-start bg-start body-start] 1fr [body-end bg-end full-end];
 				grid-template-columns:
 					[full-start] minmax(var(--s-space-bleed), auto)
 					[image-start] var(--hero-image-size) [bg-start] var(--hero-image-size)
-					[image-end] var(--s-space-base)
+					[image-end] var(--hero-gutter)
 					[body-start] minmax(auto, 65ch) [body-end] minmax(
 						var(--s-space-bleed),
 						auto

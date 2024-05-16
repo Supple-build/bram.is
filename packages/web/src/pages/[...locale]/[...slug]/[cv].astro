@@ -11,7 +11,6 @@ import { useSettings } from 'src/utilities/api/queries';
 import { Hero } from '@components/organisms/Hero';
 import { LayerSidebar } from '@components/molecules/Layer';
 import { Heading } from '@components/elements/Heading';
-import CustomBlock from '@components/elements/ContentBlock/CustomBlock.astro';
 
 export async function getStaticPaths() {
 	const data = await getDataPageCV();
@@ -22,9 +21,10 @@ export async function getStaticPaths() {
 
 interface Props {
 	pageData: PageCVProps;
+	avg?: boolean;
 }
 
-const { pageData } = Astro.props;
+const { pageData, avg } = Astro.props;
 const locale = getLocaleFromURL(Astro.url.pathname);
 const settings = await useSettings({ locale });
 
@@ -34,28 +34,48 @@ const now = new Date();
 <Layout
 	metaData={{
 		...pageData.metaData,
-		title: `CV-Bram_Smulders-${now.getFullYear()}-${now.getMonth() + 1}-${locale.id}`,
+		title: `CV-Bram_Smulders-${now.getFullYear()}-${now.getMonth() + 1}-${locale.id}${avg ? '-avg' : ''}`,
 	}}
 	skipMetaTitleSuffix
 	type={pageData.type}
 	alternativeTranslations={pageData.alternativeTranslations}
 >
-	<div class="u-print-full" itemscope itemtype="http://schema.org/Person">
+	<div
+		class={`u-print-full${avg ? ' is-avg' : ''}`}
+		itemscope
+		itemtype="http://schema.org/Person"
+	>
 		<Hero
 			chapeau={settings.labels.salutation}
 			title={`${settings.labels.iAm} ${settings.personal.givenName} ${settings.personal.familyName}.`}
-			image={{
-				src: '/images/avatar/lon-eye.webp',
-				alt: 'Bram Smulders in the London Eye',
-			}}
+			image={!avg
+				? {
+						src: '/images/avatar/lon-eye.webp',
+						alt: 'Bram Smulders in the London Eye',
+					}
+				: undefined}
 		>
 			<p slot="payoff">
-				{settings.labels.a.charAt(0).toUpperCase() + settings.labels.a.slice(1)}
+				{
+					!avg
+						? settings.labels.a.charAt(0).toUpperCase() +
+							settings.labels.a.slice(1)
+						: ''
+				}
 				<span class="u-color-brand-primary" itemprop="jobTitle"
 					>{settings.personal.jobTitle}</span
 				>
-				{settings.labels.from}
-				<span class="u-color-brand-primary">{settings.personal.country}</span>.
+				{
+					!avg ? (
+						<>
+							{settings.labels.from}
+							<span class="u-color-brand-primary">
+								{settings.personal.country}
+							</span>
+							.
+						</>
+					) : null
+				}
 			</p>
 			<ContentBlock value={pageData.intro} />
 		</Hero>
@@ -92,35 +112,44 @@ const now = new Date();
 					</div>
 				</div>
 
-				<Heading level={2} styledAs={4} variant="emphasised">
-					{pageData.personal.title}
-				</Heading>
-				<dl class="c-definitions">
-					<dt>{settings.labels.name}</dt>
-					<dd>
-						<span itemprop="givenName">{settings.personal.givenName}</span>
-						<span itemprop="familyName">{settings.personal.familyName}</span>
-					</dd>
-					<dt>{settings.labels.dateOfBirth}</dt>
-					<dd itemprop="birthDate">
-						{
-							formatLongDate(
-								new Date(settings.personal.birthDate),
-								locale.locale,
-							)
-						}
-					</dd>
-					<dt>{settings.labels.email}</dt>
-					<dd>{settings.personal.email}</dd>
-					<dt>{settings.labels.phone}</dt>
-					<dd>{settings.personal.phone}</dd>
-					<dt>{settings.labels.location}</dt>
-					<dd itemprop="homeLocation">
-						{settings.personal.city}, <span itemprop="nationality"
-							>{settings.personal.country}</span
-						>
-					</dd>
-				</dl>
+				{
+					!avg ? (
+						<>
+							<Heading level={2} styledAs={4} variant="emphasised">
+								{pageData.personal.title}
+							</Heading>
+							<dl class="c-definitions">
+								<dt>{settings.labels.name}</dt>
+								<dd>
+									<span itemprop="givenName">
+										{settings.personal.givenName}
+									</span>
+									<span itemprop="familyName">
+										{settings.personal.familyName}
+									</span>
+								</dd>
+								<dt>{settings.labels.dateOfBirth}</dt>
+								<dd itemprop="birthDate">
+									{formatLongDate(
+										new Date(settings.personal.birthDate),
+										locale.locale,
+									)}
+								</dd>
+								<dt>{settings.labels.email}</dt>
+								<dd>{settings.personal.email}</dd>
+								<dt>{settings.labels.phone}</dt>
+								<dd>{settings.personal.phone}</dd>
+								<dt>{settings.labels.location}</dt>
+								<dd itemprop="homeLocation">
+									{settings.personal.city},{' '}
+									<span itemprop="nationality">
+										{settings.personal.country}
+									</span>
+								</dd>
+							</dl>
+						</>
+					) : null
+				}
 			</div>
 		</LayerSidebar>
 
