@@ -9,16 +9,16 @@ generic.print
 
 @media print {
 	:root {
-		--s-font-size-base: 10pt;
+		--s-font-size-base: 9pt;
+		--s-font-size-300: 6pt;
 		--e-heading-1-font-size: 16pt;
 		--e-heading-2-font-size: 14pt;
 		--e-heading-3-font-size: 14pt;
 		--e-heading-4-font-size: 14pt;
 		--e-heading-5-font-size: 12pt;
-		--e-heading-6-font-size: 10pt;
+		--e-heading-6-font-size: 9pt;
 
 		--s-space-layer-radius: 16pt;
-		// --o-flow-gap: 24px;
 	}
 
 	header:not(.c-hero),
@@ -33,6 +33,7 @@ generic.print
 		--hero-gutter: var(--s-space-base);
 		--hero-visual-border-size: 2px;
 		--hero-salutaion-font-size: 10pt;
+		--o-flow-gap: 16px;
 	}
 
 	.c-layer {
