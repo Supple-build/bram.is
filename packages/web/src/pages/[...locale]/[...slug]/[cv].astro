@@ -87,12 +87,12 @@ const now = new Date();
 							{pageData.experience.title}
 						</Heading>
 						<ul class="o-flow" role="list">
-							{pageData.experience.items.map((experience) => (
+							{pageData.experience.items.map((experience, index) => (
 								<li>
 									<Job
 										title={experience.title}
 										company={experience.company}
-										content={experience.content}
+										content={index <= 2 ? experience.content : undefined}
 										dateStart={experience.dateStart}
 										dateEnd={experience.dateEnd}
 										employmentType={experience.employmentType}
